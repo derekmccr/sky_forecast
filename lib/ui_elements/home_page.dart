@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../API/database_helper.dart';
-import '../API/location_model.dart';
+import 'package:sky_forecast/Models/location_model.dart';
 import 'location_page.dart';
 
 class LocationListView extends StatefulWidget {

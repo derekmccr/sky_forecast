@@ -1,4 +1,4 @@
-import '../API/location_model.dart';
+import 'package:sky_forecast/Models/location_model.dart';
 
 class MockLocation extends Location{
   static final List<Location> items = [

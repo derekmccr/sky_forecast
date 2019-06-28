@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../API/location_model.dart';
+import 'package:sky_forecast/Models/location_model.dart';
 import 'location_page.dart';
 import 'styles.dart';
 
@@ -66,19 +66,22 @@ class LocationList extends StatelessWidget {
   }
 
   Widget _itemCard(Location location){
-    return Card(
-        color: Color(0xff348AA7),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            ListTile(
-              leading: _itemThumbnail(location),
-              title: _itemTitle(location),
+    return SizedBox(
+      height: 100.0,
+        child: Card(
+            color: Color(0xff348AA7),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                ListTile(
+                  contentPadding: EdgeInsets.only(top: 15.0),
+                  leading: _itemThumbnail(location),
+                  title: _itemTitle(location),
+                ),
+              ],
             ),
-          ],
-        ),
-        margin: EdgeInsets.all(5.0)
+            margin: EdgeInsets.all(5.0)
+        )
     );
   }
 
@@ -90,6 +93,10 @@ class LocationList extends StatelessWidget {
   }
 
   Widget _itemTitle(Location location) {
-    return Text('${location.name}');
+    return Text(location.name,
+      style: TextStyle(
+        fontSize: 25.0,
+        color: Colors.black,
+      ),);
   }
 }
