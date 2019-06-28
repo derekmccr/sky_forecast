@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'ui_elements/home_page.dart';
+import 'Mocks/location_mocks.dart';
+import 'ui_elements/location_list.dart';
 
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  //load mock data
+  final mockLocations = MockLocation.fetchAll();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: LocationListView(),
+      //home: LocationListView(),
+      home: LocationList(mockLocations),
     );
   }
 }
