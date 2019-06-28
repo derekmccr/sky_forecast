@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../API/database_helper.dart';
 import '../API/location_model.dart';
+import 'location_page.dart';
 
 class LocationListView extends StatefulWidget {
   @override
@@ -8,11 +9,14 @@ class LocationListView extends StatefulWidget {
 }
 
 class _LocationListViewState extends State<LocationListView> {
-  List<Location> locations = new List();
+  List<Location> items = new List();
   DatabaseHelper db = new DatabaseHelper();
 
   //placeholder until api solved
   final String url = "https://openweathermap.org/img/w/01d.png";
+
+
+  // TODO: items.add needs to add weather info for each location ONCE API set up, currently no weather info
 
   @override
   void initState() {
@@ -21,7 +25,7 @@ class _LocationListViewState extends State<LocationListView> {
     db.getAllLocations().then((locations) {
       setState(() {
         locations.forEach((location) {
-          locations.add(Location.fromMap(location));
+          items.add(location);
         });
       });
     });
@@ -34,21 +38,21 @@ class _LocationListViewState extends State<LocationListView> {
         title: Text("Locations"),
       ),
       body: ListView.builder(
-        itemCount: this.locations.length,
+        itemCount: this.items.length,
         itemBuilder: _listViewItemBuilder,
       ),
     );
   }
 
   Widget _listViewItemBuilder(BuildContext context, int index) {
-    var location = this.locations[index];
+    var location = this.items[index];
     return ListTile(
         contentPadding: EdgeInsets.all(10.0),
         leading: _itemThumbnail(location),
         title: _itemTitle(location),
         subtitle: _itemSubtitle(location),
         onTap: () {
-          //Navigator.push(context,new MyCustomRoute(builder: (context) => LocationPage()),);
+          Navigator.push(context,new MyCustomRoute(builder: (context) => LocationPage()),);
         }
     );
   }
