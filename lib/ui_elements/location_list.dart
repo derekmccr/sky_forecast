@@ -12,20 +12,49 @@ class LocationList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Locations")),
-      body: ListView.builder(
-        itemCount: this.locations.length,
-        itemBuilder: _listViewItemBuilder,
-      ),
+      body: Container(
+        // Add box decoration
+        decoration: BoxDecoration(
+          // Box decoration takes a gradient
+          gradient: LinearGradient(
+            // Where the linear gradient begins and ends
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: [0.1, 0.5, 0.7, 0.9],
+            colors: [
+              // Colors are easy thanks to Flutter's Colors class.
+              Colors.indigo[800],
+              Colors.indigo[700],
+              Colors.indigo[600],
+              Colors.indigo[400],
+            ],
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: this.locations.length,
+          itemBuilder: _listViewItemBuilder,
+        ),
+      )
     );
   }
 
   Widget _listViewItemBuilder(BuildContext context, int index) {
     var location = this.locations[index];
-    return ListTile(
-        contentPadding: EdgeInsets.all(10.0),
-        leading: _itemThumbnail(location),
-        title: _itemTitle(location),
-        onTap: () => _navigateToLocationDetail(context, location));
+    /*return Container(
+      color: Colors.white,
+      child: Card(
+          contentPadding: EdgeInsets.all(10.0),
+          leading: _itemThumbnail(location),
+          title: _itemTitle(location),
+          onTap: () => _navigateToLocationDetail(context, location)
+      )
+    );*/
+
+    return GestureDetector(
+      onTap: () => _navigateToLocationDetail(context, location),
+      child: _itemCard(location),
+    );
   }
 
   void _navigateToLocationDetail(BuildContext context, Location location) {
@@ -34,6 +63,23 @@ class LocationList extends StatelessWidget {
         MaterialPageRoute(
           builder: (context) => LocationPage(),
         ));
+  }
+
+  Widget _itemCard(Location location){
+    return Card(
+        color: Color(0xff348AA7),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            ListTile(
+              leading: _itemThumbnail(location),
+              title: _itemTitle(location),
+            ),
+          ],
+        ),
+        margin: EdgeInsets.all(5.0)
+    );
   }
 
   Widget _itemThumbnail(Location location) {
