@@ -3,6 +3,9 @@ import 'package:sky_forecast/Models/location_model.dart';
 import 'location_page.dart';
 import 'styles.dart';
 
+//TODO: build list from saved locations to users storage
+//TODO: fetch current weather for each location to show snapshot on each card
+
 class LocationList extends StatelessWidget {
   final List<Location> locations;
 
@@ -97,6 +100,7 @@ class LocationList extends StatelessWidget {
       style: TextStyle(
         fontSize: 25.0,
         color: Colors.black,
-      ),);
+      ),
+    );
   }
 }
