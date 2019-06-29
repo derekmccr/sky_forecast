@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'Models/weather_model.dart';
 
-Future<Weather> fetchPost() async {
+Future<Weather> fetchWeather() async {
   final response = await http.get("https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=44f9f099f38f499d40fc9ae277aabe33");
 
   if (response.statusCode == 200) {
@@ -17,7 +17,7 @@ Future<Weather> fetchPost() async {
   }
 }
 
-void main() => runApp(MyApp(weather: fetchPost()));
+void main() => runApp(MyApp(weather: fetchWeather()));
 
 class MyApp extends StatelessWidget {
   final Future<Weather> weather;

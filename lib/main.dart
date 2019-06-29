@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'ui_elements/home_page.dart';
 import 'Mocks/location_mocks.dart';
 import 'ui_elements/location_list.dart';
-import 'API/weather_api.dart';
-import 'package:http/http.dart' as http;
 
 void main() => runApp(MyApp());
 
