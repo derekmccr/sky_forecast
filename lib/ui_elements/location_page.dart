@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import '../Models/location_model.dart';
+import '../API/weather_api.dart';
 
 //TODO: layout
 
-
 //page for create contact form, data will be sent to local database
 class LocationPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     //want appBar to be transparent and share background of whole page, thus need for use of stack

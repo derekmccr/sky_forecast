@@ -1,5 +1,5 @@
 class Weather {
-  List<Overall> overalls;
+  Overall overalls;
   Number numbers;
   int visibility;
   Wind winds;
@@ -11,22 +11,23 @@ class Weather {
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     var list = json["weather"];
-    List<Overall> overalls = list.map((i) => Overall.fromJson(i)).toList();
+    //List<Overall> overallss = [];
+    //overallss = list.map((i) => Overall.fromJson(i)).toList();
 
     return Weather(
-      overalls: overalls,
+      overalls: Overall.fromJson(json["weather"][0]),
       numbers: Number.fromJson(json["main"]),
-      visibility: json["visibility"],
+      visibility: json["visibility"] as int,
       winds: Wind.fromJson(json["wind"]),
       systems: Sys.fromJson(json["sys"]),
-      timezone: json["timezone"],
+      timezone: json["timezone"] as int,
       name: json["name"]
     );
   }
 }
 
 class Overall{
-  String id;
+  int id;
   String main;
   String description;
   String icon;
@@ -35,10 +36,10 @@ class Overall{
 
   factory Overall.fromJson(Map<String, dynamic> json){
     return Overall(
-      id: json["id"],
+      id: json["id"] as int,
       main: json["main"],
       description: json["description"],
-      icon: json["icon"]
+      icon: json["icon"],
     );
   }
 }
@@ -55,10 +56,10 @@ class Number{
   factory Number.fromJson(Map<String, dynamic> json){
     return Number(
       temp: json["temp"],
-      pressure: json["pressure"],
-      humidity: json["humidity"],
-      tempMin: json["temp_min"],
-      tempMax: json["temp_max"]
+      pressure: json["pressure"].toDouble(),
+      humidity: json["humidity"] as int,
+      tempMin: json["temp_min"].toDouble(),
+      tempMax: json["temp_max"].toDouble(),
     );
   }
 }
@@ -71,8 +72,8 @@ class Wind{
 
   factory Wind.fromJson(Map<String, dynamic> json){
     return Wind(
-        speed: json["speed"],
-        degree: json["deg"]
+        speed: json["speed"].toDouble(),
+        degree: json["deg"].toDouble(),
     );
   }
 }
@@ -85,8 +86,8 @@ class Sys{
 
   factory Sys.fromJson(Map<String, dynamic> json){
     return Sys(
-      sunrise: json["sunrise"],
-      sunset: json["sunset"]
+      sunrise: json["sunrise"] as int,
+      sunset: json["sunset"] as int,
     );
   }
 }
