@@ -3,14 +3,15 @@ class Weather {
   Number numbers;
   int visibility;
   Wind winds;
+  DateTime currentTime;
   Sys systems;
   int timezone;
   String name;
 
-  Weather({this.overalls, this.numbers, this.visibility, this.winds, this.systems, this.timezone, this.name});
+  Weather({this.overalls, this.numbers, this.visibility, this.winds, this.currentTime, this.systems, this.timezone, this.name});
 
   factory Weather.fromJson(Map<String, dynamic> json) {
-    var list = json["weather"];
+    //var list = json["weather"];
     //List<Overall> overallss = [];
     //overallss = list.map((i) => Overall.fromJson(i)).toList();
 
@@ -19,6 +20,7 @@ class Weather {
       numbers: Number.fromJson(json["main"]),
       visibility: json["visibility"] as int,
       winds: Wind.fromJson(json["wind"]),
+      //currentTime: DateTime.parse(json["dt"] as String),
       systems: Sys.fromJson(json["sys"]),
       timezone: json["timezone"] as int,
       name: json["name"]

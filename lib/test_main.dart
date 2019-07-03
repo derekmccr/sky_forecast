@@ -40,15 +40,17 @@ class MyApp extends StatelessWidget {
             future: weather,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Container(
-                    child: Column(
-                      children: <Widget>[
-                        Text(snapshot.data.name),
-                        Text(snapshot.data.numbers.temp.toString())
-                      ],
-                    )
+                return Column(
+                  children: <Widget>[
+                    Text(snapshot.data.name),
+                    Text(snapshot.data.overalls.main),
+                    Text(snapshot.data.numbers.temp.toString()),
+                    Image.network("https://openweathermap.org/img/w/'${snapshot.data.overalls.icon}'.png"),
+                    Text(snapshot.data.currentTime.toLocal().toString()),
+                  ],
                 );
-              } else if (snapshot.hasError) {
+              }
+              else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
 
