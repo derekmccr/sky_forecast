@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Models/location_model.dart';
-import '../API/weather_api.dart';
+import '../Services/weather_api.dart';
 
 //TODO: layout
 //TODO: break down the column that houses information into own function
