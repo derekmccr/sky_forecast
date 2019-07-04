@@ -3,7 +3,7 @@ class Weather {
   Number numbers;
   int visibility;
   Wind winds;
-  DateTime currentTime;
+  int currentTime;
   Sys systems;
   int timezone;
   String name;
@@ -20,7 +20,7 @@ class Weather {
       numbers: Number.fromJson(json["main"]),
       visibility: json["visibility"] as int,
       winds: Wind.fromJson(json["wind"]),
-      //currentTime: DateTime.parse(json["dt"] as String),
+      currentTime: json["dt"] as int,
       systems: Sys.fromJson(json["sys"]),
       timezone: json["timezone"] as int,
       name: json["name"]
@@ -38,7 +38,7 @@ class Overall{
 
   factory Overall.fromJson(Map<String, dynamic> json){
     return Overall(
-      id: json["id"] as int,
+      id: json["id"].toInt(),
       main: json["main"],
       description: json["description"],
       icon: json["icon"],

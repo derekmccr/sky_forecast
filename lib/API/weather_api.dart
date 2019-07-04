@@ -4,7 +4,7 @@ import 'dart:convert';
 import '../Models/weather_model.dart';
 import 'package:http/http.dart' as http;
 
-//TODO: create afuture for current weather and a future for 5-day forecast
+//TODO: create a future for current weather and a future for 5-day forecast
 
 class WeatherApi{
 

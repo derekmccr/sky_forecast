@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'Models/weather_model.dart';
+import 'package:intl/intl.dart';
 
 Future<Weather> fetchWeather() async {
   final response = await http.get("https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=44f9f099f38f499d40fc9ae277aabe33");
@@ -44,9 +45,10 @@ class MyApp extends StatelessWidget {
                   children: <Widget>[
                     Text(snapshot.data.name),
                     Text(snapshot.data.overalls.main),
-                    Text(snapshot.data.numbers.temp.toString()),
-                    Image.network("https://openweathermap.org/img/w/'${snapshot.data.overalls.icon}'.png"),
-                    Text(snapshot.data.currentTime.toLocal().toString()),
+                    Text(fahrenheit(snapshot.data.numbers.temp)),
+                    Image.network("https://openweathermap.org/img/w/${snapshot.data.overalls.icon}.png"),
+                    Text(utcDate(snapshot.data.currentTime).toString()),
+                    Text(utcTime(snapshot.data.currentTime).toString()),
                   ],
                 );
               }
@@ -62,4 +64,37 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
+  //Compute fahrenheit or celsius from kelvin reading in weather api depending on user preference
+  String fahrenheit(double input){
+    double result;
+    result = input * (9/5) - 459.67;
+
+    String temp = "${result.toStringAsFixed(2)} °F";
+    return temp;
+  }
+  String celsius(double input){
+    double result;
+    result = input - 273.15;
+
+    String temp = "${result.toStringAsFixed(2)} °C";
+    return temp;
+  }
+
+  //get date and time string from given json value in weather api
+  String utcDate(int unx){
+    var result;
+    unx = unx * 1000;
+    result = DateTime.fromMillisecondsSinceEpoch(unx).toLocal();
+    result = DateFormat("MM-dd-yyyy").format(result);
+    return result.toString();
+  }
+  String utcTime(int unx){
+    var result;
+    unx = unx * 1000;
+    result = DateTime.fromMillisecondsSinceEpoch(unx).toLocal();
+    result = DateFormat("hh:mm").format(result);
+    return result.toString();
+  }
+
 }
