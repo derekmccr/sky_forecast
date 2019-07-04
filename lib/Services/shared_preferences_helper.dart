@@ -2,14 +2,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {
   static final String _userMetric = "metric";
+  static final String _userTheme = "theme";
 
   //getter & setter for user's preferred metric reading for temp
-  Future<String> getUserMetric() async {
+  getUserMetric() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_userMetric) ?? "F";
+    return prefs.getString(_userMetric) ?? "fahrenheit";
   }
-  Future<bool> setUserMetric(String value) async {
+  setUserMetric(String value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(_userMetric, value);
+  }
+
+  getUserTheme() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_userTheme) ?? "l";
+  }
+  setUserTheme(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(_userTheme, value);
   }
 }

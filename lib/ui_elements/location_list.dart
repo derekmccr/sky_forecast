@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sky_forecast/Models/location_model.dart';
 import 'location_page.dart';
 import 'styles.dart';
+import 'settings.dart';
 
 //TODO: build list from saved locations to users storage
 //TODO: fetch current weather for each location to show snapshot on each card
@@ -14,7 +15,19 @@ class LocationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Locations")),
+      appBar: AppBar(
+        title: Text("Locations"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.more_vert, color: Colors.white,),
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingsPage()),
+              );
+            },
+          )
+        ],
+      ),
       body: Container(
         // Add box decoration
         decoration: BoxDecoration(
