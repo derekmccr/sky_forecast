@@ -79,8 +79,8 @@ class MyApp extends StatelessWidget {
                     Text(snapshot.data.overalls.main),
                     Text(fahrenheit(snapshot.data.numbers.temp)),
                     Image.network("https://openweathermap.org/img/w/${snapshot.data.overalls.icon}.png"),
-                    Text(utcDate(snapshot.data.currentTime).toString()),
-                    Text(utcTime(snapshot.data.currentTime).toString()),
+                    Text(utcDate(snapshot.data.currentTime)),
+                    Text(utcTime(snapshot.data.currentTime)),
                   ],
                 );
               }
