@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sky_forecast/Models/location_model.dart';
 import 'location_page.dart';
-import 'styles.dart';
 import 'settings.dart';
 
 //TODO: build list from saved locations to users storage

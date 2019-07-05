@@ -78,27 +78,14 @@ class LocationPage extends StatelessWidget {
     );
   }
 
-  Widget _futureItemBuilder(BuildContext context, AsyncSnapshot<dynamic> snapshot){
-    if(snapshot.hasData){
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: _renderBody(context, snapshot),
-      );
-    }
-    else if(snapshot.hasError){
-      return Text("${snapshot.error}");
-    }
-    return CircularProgressIndicator();
-  }
-
   List<Widget> _renderBody(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
     var result = List<Widget>();
     result.add(Text(snapshot.data.name));
     result.add(Text(snapshot.data.overalls.main));
     result.add(Text(fahrenheit(snapshot.data.numbers.temp)));
     result.add(Image.network("https://openweathermap.org/img/w/${snapshot.data.overalls.icon}.png"));
-    result.add(Text(utcDate(snapshot.data.currentTime)));
-    result.add(Text(utcTime(snapshot.data.currentTime)));
+    result.add(Text(DateFormat("MM-dd-yyyy").format(snapshot.data.currentTime)));
+    result.add(Text(DateFormat("hh:mm").format(snapshot.data.currentTime)));
     result.add(IconButton(
         icon: Icon(Icons.refresh),
         tooltip: 'Refresh',
@@ -121,21 +108,5 @@ class LocationPage extends StatelessWidget {
 
     String temp = "${result.toStringAsFixed(2)} °C";
     return temp;
-  }
-
-  //get date and time string from given json value in weather api
-  String utcDate(int unx){
-    var result;
-    unx = unx * 1000;
-    result = DateTime.fromMillisecondsSinceEpoch(unx).toLocal();
-    result = DateFormat("MM-dd-yyyy").format(result);
-    return result.toString();
-  }
-  String utcTime(int unx){
-    var result;
-    unx = unx * 1000;
-    result = DateTime.fromMillisecondsSinceEpoch(unx).toLocal();
-    result = DateFormat("hh:mm").format(result);
-    return result.toString();
   }
 }
