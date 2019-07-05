@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../Services/database_helper.dart';
 import 'package:sky_forecast/Models/location_model.dart';
 import 'location_page.dart';
+import 'settings.dart';
 
 class LocationListView extends StatefulWidget {
   @override
@@ -36,6 +37,16 @@ class _LocationListViewState extends State<LocationListView> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Locations"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.more_vert, color: Colors.white,),
+            onPressed: (){
+              Navigator.push(context,
+                MyCustomRoute(builder: (context) => SettingsPage()),
+              );
+            },
+          )
+        ],
       ),
       body: ListView.builder(
         itemCount: this.items.length,
@@ -52,7 +63,7 @@ class _LocationListViewState extends State<LocationListView> {
         title: _itemTitle(location),
         subtitle: _itemSubtitle(location),
         onTap: () {
-          Navigator.push(context,new MyCustomRoute(builder: (context) => LocationPage()),);
+          Navigator.push(context, MyCustomRoute(builder: (context) => LocationPage()),);
         }
     );
   }

@@ -31,71 +31,80 @@ class LocationPage extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0.0,
           ),
-          body: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Expanded(
-                  //this column will hold current weather for location
-                  child: FutureBuilder(
-                    future: api.fetchWeather(),
-                    builder: (context, snapshot){
-                      if(snapshot.hasData){
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(snapshot.data.name),
-                            Text(snapshot.data.overalls.main),
-                            Text(fahrenheit(snapshot.data.numbers.temp)),
-                            Image.network("https://openweathermap.org/img/w/${snapshot.data.overalls.icon}.png"),
-                            Text(utcDate(snapshot.data.currentTime)),
-                            Text(utcTime(snapshot.data.currentTime)),
-                            IconButton(
-                                icon: Icon(Icons.refresh),
-                                tooltip: 'Refresh',
-                                onPressed: () {}
-                            ),
-                          ],
-                        );
-                      }
-                      else if(snapshot.hasError){
-                        return Text("${snapshot.error}");
-                      }
-                      return CircularProgressIndicator();
-                    }
-                  )
-                ),
-                //safe area ensures bottom wont be affected by phone screen obstructions
-                SafeArea(
-                  minimum: EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 200.0,
-                    //TODO: these cards will be housed by list builder once api connection established
-                    //cards will house future forecast for location
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Orlando"),
-                            Text("Rain"),
-                            Text("72°F"),
-                            Image.network("https://openweathermap.org/img/w/01d.png"),
-                            Text("May 14, 2019"),
-                            Text("1:00 PM"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ]
-            )
+          body: FutureBuilder(
+            future: api.fetchWeather(),
+            builder: _pageView,
           )
         )
       ],
     );
+  }
+
+  Widget _pageView(BuildContext context, AsyncSnapshot<dynamic> snapshot){
+    if(snapshot.hasData) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: _renderBody(context, snapshot),
+              )
+            ),
+            SafeArea(
+              minimum: EdgeInsets.all(8.0),
+              child: Container(
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: _renderBody(context, snapshot),
+                    ),
+                  ),
+                ),
+              )
+            )
+          ],
+        ),
+      );
+    }
+    else if(snapshot.hasError){
+      return Text("${snapshot.error}");
+    }
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _futureItemBuilder(BuildContext context, AsyncSnapshot<dynamic> snapshot){
+    if(snapshot.hasData){
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: _renderBody(context, snapshot),
+      );
+    }
+    else if(snapshot.hasError){
+      return Text("${snapshot.error}");
+    }
+    return CircularProgressIndicator();
+  }
+
+  List<Widget> _renderBody(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+    var result = List<Widget>();
+    result.add(Text(snapshot.data.name));
+    result.add(Text(snapshot.data.overalls.main));
+    result.add(Text(fahrenheit(snapshot.data.numbers.temp)));
+    result.add(Image.network("https://openweathermap.org/img/w/${snapshot.data.overalls.icon}.png"));
+    result.add(Text(utcDate(snapshot.data.currentTime)));
+    result.add(Text(utcTime(snapshot.data.currentTime)));
+    result.add(IconButton(
+        icon: Icon(Icons.refresh),
+        tooltip: 'Refresh',
+        onPressed: () {}
+    ));
+    return result;
   }
 
   //Compute fahrenheit or celsius from kelvin reading in weather api depending on user preference
