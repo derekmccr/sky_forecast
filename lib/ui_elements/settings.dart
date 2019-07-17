@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:preferences/preferences.dart';
 import '../Services/shared_preferences_helper.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 
 class SettingsPage extends StatelessWidget{
   final SharedPreferencesHelper pref = SharedPreferencesHelper();
@@ -17,14 +18,14 @@ class SettingsPage extends StatelessWidget{
           "fahrenheit",
           "f",
           "tempMetric",
-          isDefault: _matchMetric("fahrenheit"),
+          isDefault: true,
           onSelect: _setMetric("fahrenheit"),
         ),
         RadioPreference(
           "celsius",
           "c",
           "tempMetric",
-          isDefault: _matchMetric("celsius"),
+          //isDefault: _matchMetric("celsius"),
           onSelect: _setMetric("celsius"),
         ),
         PreferenceTitle('Personalization'),
@@ -32,15 +33,19 @@ class SettingsPage extends StatelessWidget{
           'Light Theme',
           'light',
           'ui_theme',
-          isDefault: _matchTheme("l"),
-          onSelect: _setTheme("l"),
+          isDefault: true,
+          onSelect: (){
+            DynamicTheme.of(context).setBrightness(Brightness.light);
+          },
         ),
         RadioPreference(
           'Dark Theme',
           'dark',
           'ui_theme',
-          isDefault: _matchTheme("d"),
-          onSelect: _setTheme("d"),
+          //isDefault: _matchTheme("d"),
+          onSelect: () {
+            DynamicTheme.of(context).setBrightness(Brightness.dark);
+          }
         ),
       ]),
     );

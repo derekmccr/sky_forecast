@@ -18,7 +18,11 @@ class LocationList extends StatelessWidget {
         title: Text("Locations"),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.more_vert, color: Colors.white,),
+              icon: Icon(Icons.search),
+              onPressed: null
+          ),
+          IconButton(
+            icon: Icon(Icons.more_vert),
             onPressed: (){
               Navigator.push(context,
                 MyCustomRoute(builder: (context) => SettingsPage()),

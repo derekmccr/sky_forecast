@@ -4,8 +4,8 @@ import '../Services/weather_api.dart';
 import 'package:intl/intl.dart';
 
 //TODO: layout
-//TODO: break down the column that houses information into own function
-//TODO: text needs to change to variables instead of current hard-code
+//TODO: bottom forecast cards
+//TODO: change api fetch from this page to location list page
 
 //page for create contact form, data will be sent to local database
 class LocationPage extends StatelessWidget {
@@ -27,6 +27,12 @@ class LocationPage extends StatelessWidget {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            leading: IconButton(
+                icon: Icon(Icons.home),
+                onPressed: (){
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                }
+            ),
             title: Text("Weather"),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
@@ -86,11 +92,11 @@ class LocationPage extends StatelessWidget {
     result.add(Image.network("https://openweathermap.org/img/w/${snapshot.data.overalls.icon}.png"));
     result.add(Text(DateFormat("MM-dd-yyyy").format(snapshot.data.currentTime)));
     result.add(Text(DateFormat("hh:mm").format(snapshot.data.currentTime)));
-    result.add(IconButton(
+    /*result.add(IconButton(
         icon: Icon(Icons.refresh),
         tooltip: 'Refresh',
         onPressed: () {}
-    ));
+    ));*/
     return result;
   }
 
