@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Services/database_helper.dart';
 import 'package:sky_forecast/Models/location_database_model.dart';
-import 'location_page.dart';
+import 'saved_location_page.dart';
 import 'settings.dart';
 
 class LocationListView extends StatefulWidget {
@@ -63,7 +63,7 @@ class _LocationListViewState extends State<LocationListView> {
         title: _itemTitle(location),
         subtitle: _itemSubtitle(location),
         onTap: () {
-          Navigator.push(context, MyCustomRoute(builder: (context) => LocationPage()),);
+          Navigator.push(context, MyCustomRoute(builder: (context) => SavedLocationPage()),);
         }
     );
   }

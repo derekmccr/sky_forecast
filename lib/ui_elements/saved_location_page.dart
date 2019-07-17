@@ -8,7 +8,9 @@ import 'package:intl/intl.dart';
 //TODO: change api fetch from this page to location list page
 
 //page for create contact form, data will be sent to local database
-class LocationPage extends StatelessWidget {
+class SavedLocationPage extends StatelessWidget {
+  // TEMP VALUE PLEASE DELETE LATER
+  final int hold = 0;
   final WeatherApi api = WeatherApi();
 
   @override
@@ -38,7 +40,7 @@ class LocationPage extends StatelessWidget {
             elevation: 0.0,
           ),
           body: FutureBuilder(
-            future: api.fetchWeather(),
+            future: api.fetchWeather(hold),
             builder: _pageView,
           )
         )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import '../Models/location_search_model.dart';
+import 'searched_location_page.dart';
 
 class AutoComplete extends StatefulWidget {
   @override
@@ -54,17 +55,15 @@ class _AutoCompleteState extends State<AutoComplete> {
                   key: key,
                   suggestions: PlacesViewModel.places,
                   itemBuilder: (context, item) {
-                    return Card(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(item.name),
-                          Padding(
-                            padding: EdgeInsets.all(15.0),
-                          ),
-                          Text(item.country)
-                        ],
-                      ),
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => SearchedLocationPage(item),
+                            )
+                        );
+                      },
+                      child: _itemCard(item),
                     );
                   },
                   itemSorter: (a, b) {
@@ -77,6 +76,21 @@ class _AutoCompleteState extends State<AutoComplete> {
               ]),
           ])
         )
+    );
+  }
+
+  Widget _itemCard(Places item){
+    return Card(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(item.name),
+          Padding(
+            padding: EdgeInsets.all(15.0),
+          ),
+          Text(item.country)
+        ],
+      ),
     );
   }
 }

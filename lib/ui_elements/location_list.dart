@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sky_forecast/Models/location_database_model.dart';
-import 'location_page.dart';
+import 'saved_location_page.dart';
 import 'settings.dart';
 
 //TODO: build list from saved locations to users storage
@@ -81,10 +81,9 @@ class LocationList extends StatelessWidget {
   }
 
   void _navigateToLocationDetail(BuildContext context, Location location) {
-    Navigator.push(
-        context,
+    Navigator.push(context,
         MaterialPageRoute(
-          builder: (context) => LocationPage(),
+          builder: (context) => SavedLocationPage(),
         ));
   }
 

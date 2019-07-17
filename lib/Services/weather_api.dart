@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 class WeatherApi{
 
-  Future<Weather> fetchWeather() async {
+  Future<Weather> fetchWeather(int search) async {
     final response = await http.get("https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=44f9f099f38f499d40fc9ae277aabe33");
 
     if (response.statusCode != 200) {
