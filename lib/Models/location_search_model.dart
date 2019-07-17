@@ -18,19 +18,19 @@ class Places{
   }
 }
 
-class PlayersViewModel {
+class PlacesViewModel {
   static List<Places> places;
 
-  static Future loadPlayers() async {
+  static Future loadPlaces() async {
     try {
       places = new List<Places>();
-      String jsonString = await rootBundle.loadString('assets/players.json');
-      Map parsedJson = json.decode(jsonString);
-      var categoryJson = parsedJson['players'] as List;
+      String jsonString = await rootBundle.loadString("assets/city.list.json");
+      var categoryJson = json.decode(jsonString);
       for (int i = 0; i < categoryJson.length; i++) {
         places.add(new Places.fromJson(categoryJson[i]));
       }
-    } catch (e) {
+    }
+    catch (e) {
       print(e);
     }
   }
