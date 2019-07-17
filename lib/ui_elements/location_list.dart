@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sky_forecast/Models/location_database_model.dart';
 import 'saved_location_page.dart';
 import 'settings.dart';
+import 'search_page.dart';
 
 //TODO: build list from saved locations to users storage
 //TODO: fetch current weather for each location to show snapshot on each card
@@ -20,6 +21,9 @@ class LocationList extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.search),
               onPressed: (){
+                Navigator.push(context,
+                  MyCustomRoute(builder: (context) => SearchPage()),
+                );
               },
           ),
           IconButton(
@@ -34,7 +38,7 @@ class LocationList extends StatelessWidget {
       ),
       body: Container(
         // Add box decoration
-        decoration: BoxDecoration(
+        /*decoration: BoxDecoration(
           // Box decoration takes a gradient
           gradient: LinearGradient(
             // Where the linear gradient begins and ends
@@ -50,7 +54,7 @@ class LocationList extends StatelessWidget {
               Colors.indigo[400],
             ],
           ),
-        ),
+        ),*/
         child: ListView.builder(
           itemCount: this.locations.length,
           itemBuilder: _listViewItemBuilder,
@@ -61,15 +65,6 @@ class LocationList extends StatelessWidget {
 
   Widget _listViewItemBuilder(BuildContext context, int index) {
     var location = this.locations[index];
-    /*return Container(
-      color: Colors.white,
-      child: Card(
-          contentPadding: EdgeInsets.all(10.0),
-          leading: _itemThumbnail(location),
-          title: _itemTitle(location),
-          onTap: () => _navigateToLocationDetail(context, location)
-      )
-    );*/
 
     return GestureDetector(
       onTap: () => _navigateToLocationDetail(context, location),

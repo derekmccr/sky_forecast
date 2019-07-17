@@ -3,19 +3,19 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import '../Models/location_search_model.dart';
 import 'searched_location_page.dart';
 
-class AutoComplete extends StatefulWidget {
+class SearchPage extends StatefulWidget {
   @override
-  _AutoCompleteState createState() => new _AutoCompleteState();
+  _SearchPageState createState() => new _SearchPageState();
 }
 
-class _AutoCompleteState extends State<AutoComplete> {
+class _SearchPageState extends State<SearchPage> {
   GlobalKey<AutoCompleteTextFieldState<Places>> key = new GlobalKey();
 
   AutoCompleteTextField searchTextField;
 
   TextEditingController controller = new TextEditingController();
 
-  _AutoCompleteState();
+  _SearchPageState();
 
   void _loadData() async {
     await PlacesViewModel.loadPlaces();
