@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:sky_forecast/Models/location_model.dart';
+import 'package:sky_forecast/Models/location_database_model.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = new DatabaseHelper.internal();

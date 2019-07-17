@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Services/database_helper.dart';
-import 'package:sky_forecast/Models/location_model.dart';
+import 'package:sky_forecast/Models/location_database_model.dart';
 import 'location_page.dart';
 import 'settings.dart';
 

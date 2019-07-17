@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sky_forecast/Models/location_model.dart';
+import 'package:sky_forecast/Models/location_database_model.dart';
 import 'location_page.dart';
 import 'settings.dart';
 
@@ -19,7 +19,11 @@ class LocationList extends StatelessWidget {
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.search),
-              onPressed: null
+              onPressed: (){
+                Navigator.push(context,
+                  MyCustomRoute(builder: (context) => SettingsPage()),
+                );
+              },
           ),
           IconButton(
             icon: Icon(Icons.more_vert),
