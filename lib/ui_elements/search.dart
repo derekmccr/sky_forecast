@@ -59,7 +59,7 @@ class _AutoCompleteState extends State<AutoComplete> {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(
-                              builder: (context) => SearchedLocationPage(item),
+                              builder: (context) => SearchedLocationPage(place: item,),
                             )
                         );
                       },

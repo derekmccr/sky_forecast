@@ -20,9 +20,6 @@ class LocationList extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.search),
               onPressed: (){
-                Navigator.push(context,
-                  MyCustomRoute(builder: (context) => SettingsPage()),
-                );
               },
           ),
           IconButton(

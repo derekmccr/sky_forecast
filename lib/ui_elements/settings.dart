@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:preferences/preferences.dart';
-import '../Services/shared_preferences_helper.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 
-class SettingsPage extends StatelessWidget{
-  final SharedPreferencesHelper pref = SharedPreferencesHelper();
+class SettingsPage extends StatefulWidget {
+  SettingsPage({Key key}) : super(key: key);
 
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,16 +21,13 @@ class SettingsPage extends StatelessWidget{
         RadioPreference(
           "fahrenheit",
           "f",
-          "tempMetric",
+          "temp_metric",
           isDefault: true,
-          onSelect: _setMetric("fahrenheit"),
         ),
         RadioPreference(
           "celsius",
           "c",
-          "tempMetric",
-          //isDefault: _matchMetric("celsius"),
-          onSelect: _setMetric("celsius"),
+          "temp_metric",
         ),
         PreferenceTitle('Personalization'),
         RadioPreference(
@@ -42,34 +43,11 @@ class SettingsPage extends StatelessWidget{
           'Dark Theme',
           'dark',
           'ui_theme',
-          //isDefault: _matchTheme("d"),
           onSelect: () {
             DynamicTheme.of(context).setBrightness(Brightness.dark);
           }
         ),
       ]),
     );
-  }
-
-  //functions to find default value
-  bool _matchMetric(String val){
-    if(pref.getUserMetric() == val)
-      return true;
-    else
-      return false;
-  }
-  bool _matchTheme(String val){
-    if(pref.getUserTheme() == val)
-      return true;
-    else
-      return false;
-  }
-
-  //functions to set new value
-  _setMetric(String val){
-    pref.setUserMetric(val);
-  }
-  _setTheme(String val){
-    pref.setUserTheme(val);
   }
 }

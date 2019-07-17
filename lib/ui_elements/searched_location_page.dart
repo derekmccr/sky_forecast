@@ -9,9 +9,15 @@ import 'package:intl/intl.dart';
 //TODO: add favorite button to toggle if want location saved or not
 
 //page for create contact form, data will be sent to local database
-class SearchedLocationPage extends StatelessWidget {
-  final Places item;
-  SearchedLocationPage(this.item);
+class SearchedLocationPage extends StatefulWidget {
+  final Places place;
+  SearchedLocationPage({Key key, this.place}) : super(key: key);
+
+  @override
+  _SearchedLocationPageState createState() => _SearchedLocationPageState();
+}
+
+class _SearchedLocationPageState extends State<SearchedLocationPage> {
 
   final WeatherApi api = WeatherApi();
 
@@ -42,7 +48,7 @@ class SearchedLocationPage extends StatelessWidget {
               elevation: 0.0,
             ),
             body: FutureBuilder(
-              future: api.fetchWeather(item.id),
+              future: api.fetchWeather(widget.place.id),
               builder: _pageView,
             )
         )
