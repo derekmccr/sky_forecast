@@ -5,7 +5,7 @@ import 'package:preferences/preferences.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 
 main() async {
-  await PrefService.init(prefix: 'pref_');
+  await PrefService.init(prefix: "_pref");
 
   runApp(MyApp());
 }

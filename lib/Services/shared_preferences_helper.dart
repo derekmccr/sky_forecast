@@ -1,4 +1,4 @@
-import 'package:shared_preferences/shared_preferences.dart';
+/*import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {
   static final String _userMetric = "metric";
@@ -21,5 +21,14 @@ class SharedPreferencesHelper {
   setUserTheme(String value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(_userTheme, value);
+  }
+}*/
+
+import 'package:preferences/preferences.dart';
+
+class PreferencesHelper{
+  setMetric(String val) async{
+    await PrefService.init(prefix: "_pref");
+    PrefService.setString("temp_metric", val);
   }
 }
