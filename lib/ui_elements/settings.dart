@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:preferences/preferences.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-import '../Services/shared_preferences_helper.dart';
+import '../Services/preferences_helper.dart';
 
 //stateful
 /*class SettingsPage extends StatefulWidget {
@@ -80,7 +80,7 @@ class SettingsPage extends StatelessWidget{
           "fahrenheit",
           "f",
           "temp_metric",
-          isDefault: true,
+          isDefault: _currentMetric("f"),
           onSelect: (){
             helper.setMetric("f");
           },
@@ -89,6 +89,7 @@ class SettingsPage extends StatelessWidget{
           "celsius",
           "c",
           "temp_metric",
+          isDefault: _currentMetric("c"),
           onSelect: (){
             helper.setMetric("c");
           },
@@ -98,20 +99,39 @@ class SettingsPage extends StatelessWidget{
           'Light Theme',
           'light',
           'ui_theme',
-          isDefault: true,
+          isDefault: _currentTheme("light"),
           onSelect: (){
             DynamicTheme.of(context).setBrightness(Brightness.light);
+            helper.setTheme("light");
           },
         ),
         RadioPreference(
           'Dark Theme',
           'dark',
           'ui_theme',
+          isDefault: _currentTheme("dark"),
           onSelect: () {
             DynamicTheme.of(context).setBrightness(Brightness.dark);
+            helper.setTheme("light");
           }
         ),
       ]),
     );
+  }
+
+  _currentTheme(String val){
+    String current = PrefService.getString("ui_theme") ?? "light";
+    if(current == val)
+      return true;
+    else
+      return false;
+  }
+
+  _currentMetric(String val){
+    String current = PrefService.getString("temp_metric") ?? "f";
+    if(current == val)
+      return true;
+    else
+      return false;
   }
 }

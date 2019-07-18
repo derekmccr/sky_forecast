@@ -116,7 +116,6 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
   //Compute fahrenheit or celsius from kelvin reading in weather api depending on user preference
   String temp(double input){
     String metric = PrefService.getString("temp_metric");
-    print(metric);
     double result;
     if(metric == "f"){
       result = input * (9/5) - 459.67;
