@@ -5,17 +5,17 @@ class MockLocation extends Location{
     Location(
       id: 1,
       name: "Orlando",
-      freq: 5,
+      locId: 4167147,
     ),
     Location(
       id: 2,
       name: "Los Angles",
-      freq: 8,
+      locId: 5368361,
     ),
     Location(
       id: 3,
       name: "Tampa",
-      freq: 10,
+      locId: 4174757,
     )
   ];
 

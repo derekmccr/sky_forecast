@@ -75,7 +75,7 @@ class LocationList extends StatelessWidget {
   void _navigateToLocationDetail(BuildContext context, Location location) {
     Navigator.push(context,
         MaterialPageRoute(
-          builder: (context) => SavedLocationPage(),
+          builder: (context) => SavedLocationPage(item: location,),
         ));
   }
 

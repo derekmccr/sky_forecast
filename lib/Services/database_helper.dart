@@ -12,7 +12,7 @@ class DatabaseHelper {
   final String table = "Locations";
   final String columnId = "id";
   final String columnName = "name";
-  final String columnFreq = "freq";
+  final String columnLocId = "locId";
 
   DatabaseHelper.internal();
 
@@ -36,7 +36,7 @@ class DatabaseHelper {
         "CREATE TABLE $table("
             "$columnId INTEGER PRIMARY KEY, "
             "$columnName TEXT, "
-            "$columnFreq INTEGER)");
+            "$columnLocId INTEGER)");
   }
 
   Future<void> saveLocation(Location location) async {
@@ -55,7 +55,7 @@ class DatabaseHelper {
       return Location(
         id: maps[i]["id"],
         name: maps[i]["name"],
-        freq: maps[i]["freq"],
+        locId: maps[i]["locId"],
       );
     });
   }
@@ -68,8 +68,8 @@ class DatabaseHelper {
   Future<List> getLocation(int id) async {
     var dbClient = await db;
     final List<Map<String, dynamic>> maps = await dbClient.query(table,
-        columns: [columnId, columnName, columnFreq],
-        where: "$columnId = ?",
+        columns: [columnId, columnName, columnLocId],
+        where: "$columnLocId = ?",
         whereArgs: [id]);
 
     if (maps.length > 0) {
@@ -77,12 +77,23 @@ class DatabaseHelper {
         return Location(
           id: maps[i]["id"],
           name: maps[i]["name"],
-          freq: maps[i]["freq"],
+          locId: maps[i]["locId"],
         );
       });
     }
 
     return null;
+  }
+
+  Future<bool> searchLocation(int id) async{
+    var dbClient = await db;
+    final List<Map<String, dynamic>> maps = await dbClient.query(table,
+        columns: [columnId, columnName, columnLocId],
+        where: "$columnLocId = ?",
+        whereArgs: [id]);
+    if(maps.length > 0)
+      return true;
+    return false;
   }
 
   Future<void> updateLocation(Location location) async {
@@ -91,18 +102,18 @@ class DatabaseHelper {
     // Update the given Dog.
     await dbClient.update(table, location.toMap(),
       // Ensure that the Location has a matching id.
-      where: "id = ?",
+      where: "$columnLocId = ?",
       // Pass the Location's id as a whereArg to prevent SQL injection.
       whereArgs: [location.id],
     );
   }
 
-  Future<void> deleteNote(int id) async {
+  Future<void> deleteLocation(int id) async {
     var dbClient = await db;
     // Remove the location from the database.
     await dbClient.delete(table,
       // Use a `where` clause to delete a specific location.
-      where: "id = ?",
+      where: "$columnLocId = ?",
       // Pass the locations's id as a whereArg to prevent SQL injection.
       whereArgs: [id],
     );

@@ -1,15 +1,15 @@
 class Location{
   final String name;
-  final int freq;
   final int id;
+  final int locId;
 
-  Location({this.id, this.name, this.freq});
+  Location({this.id, this.name, this. locId});
 
   Map<String, dynamic> toMap() {
     return {
       "id": id,
       "name": name,
-      "freq": freq,
+      "locId": locId,
     };
   }
 
@@ -17,6 +17,6 @@ class Location{
   // each dog when using the print statement.
   @override
   String toString() {
-    return 'Location{id: $id, name: $name, freq: $freq}';
+    return "Location{id: $id, name: $name, locId: $locId}";
   }
 }

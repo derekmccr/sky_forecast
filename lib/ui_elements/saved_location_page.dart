@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../Services/weather_api.dart';
 import 'package:intl/intl.dart';
 import 'package:preferences/preferences.dart';
-import '../Models/location_search_model.dart';
+import '../Models/location_database_model.dart';
 
 //TODO: layout
 //TODO: bottom forecast cards
@@ -11,8 +11,8 @@ import '../Models/location_search_model.dart';
 
 //page for create contact form, data will be sent to local database
 class SavedLocationPage extends StatefulWidget {
-  final Places place;
-  SavedLocationPage({Key key, this.place}) : super(key: key);
+  final Location item;
+  SavedLocationPage({Key key, this.item}) : super(key: key);
 
   @override
   _SavedLocationPageState createState() => _SavedLocationPageState();
@@ -51,7 +51,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
             elevation: 0.0,
           ),
           body: FutureBuilder(
-            future: api.fetchHard(),
+            future: api.fetchWeather(widget.item.locId),
             builder: _pageView,
           )
         )
