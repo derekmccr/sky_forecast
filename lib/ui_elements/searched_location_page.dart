@@ -9,6 +9,7 @@ import '../Services/weather_api.dart';
 import '../Services/forecast_api.dart';
 import 'package:intl/intl.dart';
 import 'package:preferences/preferences.dart';
+import 'settings.dart';
 
 //TODO: layout
 //TODO: add favorite button to toggle if want location saved or not
@@ -60,19 +61,32 @@ class _SearchedLocationPageState extends State<SearchedLocationPage> {
                 }
             ),
             title: Text("Weather"),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.more_vert),
+                onPressed: (){
+                  Navigator.push(context,
+                    MyCustomRoute(builder: (context) => SettingsPage()),
+                  );
+                },
+              )
+            ],
             backgroundColor: Colors.transparent,
             elevation: 0.0,
           ),
           body: Center(
-            child: Column(
+            child: isLoading ? CircularProgressIndicator(
+              strokeWidth: 2.0,
+              valueColor: AlwaysStoppedAnimation(Colors.white),
+              ) : Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Expanded(
-                    child: weatherData != null ? _currentWeatherView(context, weatherData) : Container()
+                    child: weatherData != null ? _currentWeatherView(context, weatherData) : Container(child: Text("Weather Unavailable."),)
                 ),
                 SafeArea(
                     minimum: EdgeInsets.all(8.0),
-                    child: forecastData != null ? _forecastWeatherView(context, forecastData) : Container()
+                    child: forecastData != null ? _forecastWeatherView(context, forecastData) : Container(child: Text("Forecast Unavailable."),)
                 )
               ],
             ),
@@ -338,3 +352,19 @@ class _SearchedLocationPageState extends State<SearchedLocationPage> {
     );
   }
 }*/
+
+//this class ONLY controls animation between pages
+//NO NEED FOR FURTHER MODIFICATION
+class MyCustomRoute<T> extends MaterialPageRoute<T> {
+  MyCustomRoute({WidgetBuilder builder, RouteSettings settings})
+      : super(builder: builder, settings: settings);
+
+  @override
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    if (settings.isInitialRoute) return child;
+    // Fades between routes. (If you don't want any animation,
+    // just return child.)
+    return new FadeTransition(opacity: animation, child: child);
+  }
+}
