@@ -1,17 +1,15 @@
 class Weather {
-  Overall overalls;
-  Number numbers;
-  int visibility;
-  Wind winds;
-  DateTime currentTime;
-  Sys systems;
-  int timezone;
-  String name;
+  final Overall overalls;
+  final Number numbers;
+  final int visibility;
+  final Wind winds;
+  final DateTime currentTime;
+  final Sys systems;
+  final String name;
 
-  Weather({this.overalls, this.numbers, this.visibility, this.winds, this.currentTime, this.systems, this.timezone, this.name});
+  Weather({this.overalls, this.numbers, this.visibility, this.winds, this.currentTime, this.systems, this.name});
 
   factory Weather.fromJson(Map<String, dynamic> json) {
-
     return Weather(
       overalls: Overall.fromJson(json["weather"][0]),
       numbers: Number.fromJson(json["main"]),
@@ -19,17 +17,16 @@ class Weather {
       winds: Wind.fromJson(json["wind"]),
       currentTime: DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false).toLocal(),
       systems: Sys.fromJson(json["sys"]),
-      timezone: json["timezone"] as int,
       name: json["name"]
     );
   }
 }
 
 class Overall{
-  int id;
-  String main;
-  String description;
-  String icon;
+  final int id;
+  final String main;
+  final String description;
+  final String icon;
 
   Overall({this.id, this.main, this.description, this.icon});
 
@@ -44,19 +41,19 @@ class Overall{
 }
 
 class Number{
-  double temp;
-  double pressure;
-  int humidity;
-  double tempMin;
-  double tempMax;
+  final double temp;
+  final double pressure;
+  final int humidity;
+  final double tempMin;
+  final double tempMax;
 
   Number({this.temp, this.pressure, this.humidity, this.tempMin, this.tempMax});
 
   factory Number.fromJson(Map<String, dynamic> json){
     return Number(
-      temp: json["temp"],
+      temp: json["temp"].toDouble(),
       pressure: json["pressure"].toDouble(),
-      humidity: json["humidity"] as int,
+      humidity: json["humidity"].toInt(),
       tempMin: json["temp_min"].toDouble(),
       tempMax: json["temp_max"].toDouble(),
     );
@@ -64,8 +61,8 @@ class Number{
 }
 
 class Wind{
-  double speed;
-  double degree;
+  final double speed;
+  final double degree;
 
   Wind({this.speed, this.degree});
 
@@ -78,15 +75,15 @@ class Wind{
 }
 
 class Sys{
-  int sunrise;
-  int sunset;
+  final DateTime sunrise;
+  final DateTime sunset;
 
   Sys({this.sunrise, this.sunset});
 
   factory Sys.fromJson(Map<String, dynamic> json){
     return Sys(
-      sunrise: json["sunrise"] as int,
-      sunset: json["sunset"] as int,
+      sunrise: DateTime.fromMillisecondsSinceEpoch(json['sunrise'] * 1000, isUtc: false).toLocal(),
+      sunset: DateTime.fromMillisecondsSinceEpoch(json['sunset'] * 1000, isUtc: false).toLocal(),
     );
   }
 }

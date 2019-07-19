@@ -51,7 +51,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
             elevation: 0.0,
           ),
           body: FutureBuilder(
-            future: api.fetchWeather(hold),
+            future: api.fetchHard(),
             builder: _pageView,
           )
         )
