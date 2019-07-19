@@ -112,7 +112,7 @@ class SettingsPage extends StatelessWidget{
           isDefault: _currentTheme("dark"),
           onSelect: () {
             DynamicTheme.of(context).setBrightness(Brightness.dark);
-            helper.setTheme("light");
+            helper.setTheme("dark");
           }
         ),
       ]),
