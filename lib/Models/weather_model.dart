@@ -1,7 +1,7 @@
 class Weather {
   final Overall overalls;
   final Number numbers;
-  final double visibility;
+  final int visibility;
   final Wind winds;
   final DateTime currentTime;
   final Sys systems;
@@ -13,7 +13,7 @@ class Weather {
     return Weather(
       overalls: Overall.fromJson(json["weather"][0]),
       numbers: Number.fromJson(json["main"]),
-      visibility: json["visibility"].toDouble(),
+      visibility: json["visibility"].toInt(),
       winds: Wind.fromJson(json["wind"]),
       currentTime: DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false).toLocal(),
       systems: Sys.fromJson(json["sys"]),

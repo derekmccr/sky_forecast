@@ -103,7 +103,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
               Navigator.of(context).popUntil((route) => route.isFirst);
             }
         ),
-        title: Text("Weather"),
+        title: Text("Weather", style: TextStyle(fontFamily: "Muli"),),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.more_vert),
@@ -161,9 +161,9 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text("Temp Min", style: TextStyle(color: Colors.white)),
-                  Text(temp(weatherData.numbers.tempMin), style: TextStyle(color: Colors.white)),
+                  Text(temp(weatherData.numbers.tempMin), style: TextStyle(color: Colors.white, fontFamily: "Muli-Regular")),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
-                  Text("Temp Max", style: TextStyle(color: Colors.white)),
+                  Text("Temp Max", style: TextStyle(color: Colors.white, fontFamily: "Muli")),
                   Text(temp(weatherData.numbers.tempMax), style: TextStyle(color: Colors.white)),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
                   Text("Sunrise", style: TextStyle(color: Colors.white)),
@@ -243,7 +243,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
   }
 
   //Meter to Miles
-  String miles(double input){
+  String miles(int input){
     double mile;
     mile = input * 0.000621;
 

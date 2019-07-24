@@ -68,13 +68,15 @@ flutter:
   fonts:
     - family: Muli
       fonts:
-        - asset: assets/Muli-Regular.ttf
-        - asset: fonts/Muli-RegularItalic.ttf
-          style: italic
-        - asset: fonts/Muli-Black.ttf
-        - asset: fonts/Muli-Bold.ttf
-          weight: 700
-        - asset: fonts/Muli-Light.ttf
+        - asset: assets/Muli-Light.ttf
+          weight: 300
+    - family: Mons
+      fonts:
+        - asset: assets/Montserrat-Regular.ttf
+    - family: Rale
+      fonts:
+        - asset: assets/Raleway-Regular.ttf
+
 
   #   - family: Trajan Pro
   #     fonts:
