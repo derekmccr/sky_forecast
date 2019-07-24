@@ -174,10 +174,10 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text("Wind", style: TextStyle(color: Colors.white)),
-                  Text("sw ${weatherData.winds.speed.toString()} M/s", style: TextStyle(color: Colors.white)),
+                  Text("${deg(weatherData.winds.degree)} ${mPh(weatherData.winds.speed)}", style: TextStyle(color: Colors.white)),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
                   Text("Visibility", style: TextStyle(color: Colors.white)),
-                  Text("${weatherData.visibility} Mt", style: TextStyle(color: Colors.white)),
+                  Text("${miles(weatherData.visibility)} mi.", style: TextStyle(color: Colors.white)),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
                   Text("Sunset", style: TextStyle(color: Colors.white)),
                   Text(DateFormat("hh:mm a").format(weatherData.systems.sunrise), style: TextStyle(color: Colors.white))
@@ -225,6 +225,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
     );
   }
 
+  //Metric Conversions
   //Compute fahrenheit or celsius from kelvin reading in weather api depending on user preference
   String temp(double input){
     String metric = PrefService.getString("temp_metric");
@@ -239,6 +240,46 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
       String temp = "${result.toStringAsFixed(2)} °C";
       return temp;
     }
+  }
+
+  //Meter to Miles
+  String miles(double input){
+    double mile;
+    mile = input * 0.000621;
+
+    String result;
+    result = mile.toStringAsFixed(3);
+    return result;
+  }
+
+  //degree translation
+  String deg(double input){
+    if((input < 25.0 && input >= 0.0) || (input >= 335.0 && input <= 360.0))
+      return "n";
+    else if(input >= 25.0 && input < 70.0)
+      return "ne";
+    else if(input >= 70.0 && input < 115.0)
+      return "e";
+    else if(input >= 115.0 && input < 160.0)
+      return "se";
+    else if(input >= 160.0 && input < 205.0)
+      return "s";
+    else if(input >= 205.0 && input < 250.0)
+      return "sw";
+    else if(input >= 250.0 && input < 290.0)
+      return "w";
+    else
+      return "nw";
+  }
+
+  //M/s to mph
+  String mPh(double input){
+    double mph;
+    mph = input * 2.2369;
+
+    String result;
+    result = "${mph.toStringAsFixed(3)} mph";
+    return result;
   }
 
   loadWeather() async {

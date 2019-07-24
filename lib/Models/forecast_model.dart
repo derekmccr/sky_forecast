@@ -12,7 +12,7 @@ class Forecast{
       Weather w = new Weather(
           overalls: Overall.fromJson(e["weather"][0]),
           numbers: Number.fromJson(e["main"]),
-          visibility: e["visibility"] as int,
+          visibility: e["visibility"].toDouble(),
           winds: Wind.fromJson(e["wind"]),
           currentTime: DateTime.fromMillisecondsSinceEpoch(e["dt"] * 1000, isUtc: false).toLocal(),
           systems: null,
