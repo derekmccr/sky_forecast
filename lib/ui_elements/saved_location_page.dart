@@ -11,7 +11,6 @@ import 'package:intl/intl.dart';
 import 'package:preferences/preferences.dart';
 import 'settings.dart';
 
-//TODO: layout
 //TODO: add favorite button to toggle if want location saved or not
 
 //page for create contact form, data will be sent to local database
