@@ -17,6 +17,7 @@ class LocationList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Locations"),
+        backgroundColor: new Color(0xFF363640),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.search),
@@ -37,7 +38,11 @@ class LocationList extends StatelessWidget {
         ],
       ),
       body: Container(
-        // Add box decoration
+        //add box single color
+        decoration: BoxDecoration(
+          color: new Color(0xFF363640)
+        ),
+        // Add box gradient decoration
         /*decoration: BoxDecoration(
           // Box decoration takes a gradient
           gradient: LinearGradient(
@@ -83,7 +88,7 @@ class LocationList extends StatelessWidget {
     return SizedBox(
       height: 100.0,
         child: Card(
-            color: Color(0xff348AA7),
+            //color: Color(0xff348AA7),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[

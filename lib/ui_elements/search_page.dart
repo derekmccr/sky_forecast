@@ -39,13 +39,13 @@ class _SearchPageState extends State<SearchPage> {
               Column(children: <Widget>[
                 searchTextField = AutoCompleteTextField<Places>(
                   decoration: InputDecoration(
-                    suffixIcon: Container(
+                    /*suffixIcon: Container(
                       width: 85.0,
                       height: 60.0,
-                    ),
+                    ),*/
                     contentPadding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 20.0),
                     filled: true,
-                    hintText: "Search Location",
+                    hintText: "Search City",
                     hintStyle: TextStyle(color: Colors.black)
                   ),
                   itemSubmitted: (item) {

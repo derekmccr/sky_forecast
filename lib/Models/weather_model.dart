@@ -13,7 +13,7 @@ class Weather {
     return Weather(
       overalls: Overall.fromJson(json["weather"][0]),
       numbers: Number.fromJson(json["main"]),
-      visibility: json["visibility"] as int,
+      visibility: json["visibility"].toInt(),
       winds: Wind.fromJson(json["wind"]),
       currentTime: DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false).toLocal(),
       systems: Sys.fromJson(json["sys"]),

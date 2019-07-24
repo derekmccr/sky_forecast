@@ -1,183 +1,3 @@
-/*import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import '../Models/location_search_model.dart';
-import '../Models/weather_model.dart';
-import '../Models/forecast_model.dart';
-import '../Services/weather_api.dart';
-import '../Services/forecast_api.dart';
-import 'package:intl/intl.dart';
-import 'package:preferences/preferences.dart';
-import 'settings.dart';
-import '../Models/location_database_model.dart';*/
-
-//TODO: layout
-//TODO: bottom forecast cards
-//TODO: change api fetch from this page to location list page
-//TODO: add favorite button to toggle if want location saved or not
-
-//page for create contact form, data will be sent to local database
-/*class SavedLocationPage extends StatefulWidget {
-  final Location item;
-  SavedLocationPage({Key key, this.item}) : super(key: key);
-
-  @override
-  _SavedLocationPageState createState() => _SavedLocationPageState();
-}
-
-class _SavedLocationPageState extends State<SavedLocationPage> {
-  // TEMP VALUE PLEASE DELETE LATER
-  final int hold = 0;
-
-  final WeatherApi api = WeatherApi();
-
-  @override
-  Widget build(BuildContext context) {
-    //want appBar to be transparent and share background of whole page, thus need for use of stack
-    return Stack(
-      children: <Widget>[
-        Container(
-          height: double.infinity,
-          width: double.infinity,
-          //this decorations sets background of full page
-          decoration: new BoxDecoration(
-            color: Colors.blueGrey,
-          ),
-        ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            leading: IconButton(
-                icon: Icon(Icons.home),
-                onPressed: (){
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                }
-            ),
-            title: Text("Weather"),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: (){
-                  Navigator.push(context,
-                    MyCustomRoute(builder: (context) => SettingsPage()),
-                  );
-                },
-              )
-            ],
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-          ),
-          body: FutureBuilder(
-            future: api.fetchWeather(widget.item.locId),
-            builder: _pageView,
-          )
-        )
-      ],
-    );
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  Widget _pageView(BuildContext context, AsyncSnapshot<dynamic> snapshot){
-    if(snapshot.hasData) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: _renderBody(context, snapshot),
-              )
-            ),
-            SafeArea(
-              minimum: EdgeInsets.all(8.0),
-              child: Container(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: _renderBody(context, snapshot),
-                    ),
-                  ),
-                ),
-              )
-            )
-          ],
-        ),
-      );
-    }
-    else if(snapshot.hasError){
-      return Text("${snapshot.error}");
-    }
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-
-  List<Widget> _renderBody(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-    var result = List<Widget>();
-    result.add(Text(snapshot.data.name));
-    result.add(Text(snapshot.data.overalls.main));
-    result.add(Text(temp(snapshot.data.numbers.temp)));
-    result.add(Image.network("https://openweathermap.org/img/w/${snapshot.data.overalls.icon}.png"));
-    result.add(Text(DateFormat("MM-dd-yyyy").format(snapshot.data.currentTime)));
-    result.add(Text(DateFormat("hh:mm").format(snapshot.data.currentTime)));
-    /*result.add(IconButton(
-        icon: Icon(Icons.refresh),
-        tooltip: 'Refresh',
-        onPressed: () {}
-    ));*/
-    return result;
-  }
-
-  //Compute fahrenheit or celsius from kelvin reading in weather api depending on user preference
-  String temp(double input){
-    String metric = PrefService.getString("temp_metric");
-    double result;
-    if(metric == "f"){
-      result = input * (9/5) - 459.67;
-      String temp = "${result.toStringAsFixed(2)} °F";
-      return temp;
-    }
-    else{
-      result = input - 273.15;
-      String temp = "${result.toStringAsFixed(2)} °C";
-      return temp;
-    }
-  }
-}
-
-//this class ONLY controls animation between pages
-//NO NEED FOR FURTHER MODIFICATION
-class MyCustomRoute<T> extends MaterialPageRoute<T> {
-  MyCustomRoute({WidgetBuilder builder, RouteSettings settings})
-      : super(builder: builder, settings: settings);
-
-  @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
-    if (settings.isInitialRoute) return child;
-    // Fades between routes. (If you don't want any animation,
-    // just return child.)
-    return new FadeTransition(opacity: animation, child: child);
-  }
-}*/
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -221,7 +41,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
   @override
   Widget build(BuildContext context) {
     //want appBar to be transparent and share background of whole page, thus need for use of stack
-    return Stack(
+    /*return Stack(
       children: <Widget>[
         Container(
           height: double.infinity,
@@ -273,13 +93,107 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
           ),
         )
       ],
+    );*/
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: new Color(0xFF363640),
+        leading: IconButton(
+            icon: Icon(Icons.home),
+            onPressed: (){
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            }
+        ),
+        title: Text("Weather"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.more_vert),
+            onPressed: (){
+              Navigator.push(context,
+                MyCustomRoute(builder: (context) => SettingsPage()),
+              );
+            },
+          )
+        ],
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          color: new Color(0xFF363640)
+        ),
+        child: Center(
+          child: isLoading ? CircularProgressIndicator(
+            strokeWidth: 2.0,
+            valueColor: AlwaysStoppedAnimation(Colors.white),
+          ) : Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Expanded(
+                  child: weatherData != null ? _currentWeatherView(context, weatherData) : Container(child: Text("Weather Unavailable."),)
+              ),
+              SafeArea(
+                  minimum: EdgeInsets.all(8.0),
+                  child: forecastData != null ? _forecastWeatherView(context, forecastData) : Container(child: Text("Forecast Unavailable."),)
+              )
+            ],
+          ),
+        ),
+      )
     );
   }
 
   Widget _currentWeatherView(BuildContext context, Weather weatherData){
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: _renderBody(context, weatherData),
+      children: <Widget>[
+        Text(weatherData.name, style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white)),
+        Text(weatherData.overalls.description, style: TextStyle(fontSize: 18.0, color: Colors.white)),
+        Image.network("https://openweathermap.org/img/w/${weatherData.overalls.icon}.png"),
+        Text(temp(weatherData.numbers.temp), style: TextStyle(fontSize: 18.0, color: Colors.white)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 2.5),
+          child: Divider(color: Colors.white),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text("Temp Min", style: TextStyle(color: Colors.white)),
+                  Text(temp(weatherData.numbers.tempMin), style: TextStyle(color: Colors.white)),
+                  Padding(padding: EdgeInsets.only(bottom: 10.0)),
+                  Text("Temp Max", style: TextStyle(color: Colors.white)),
+                  Text(temp(weatherData.numbers.tempMax), style: TextStyle(color: Colors.white)),
+                  Padding(padding: EdgeInsets.only(bottom: 10.0)),
+                  Text("Sunrise", style: TextStyle(color: Colors.white)),
+                  Text(DateFormat("hh:mm a").format(weatherData.systems.sunrise), style: TextStyle(color: Colors.white)),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text("Wind", style: TextStyle(color: Colors.white)),
+                  Text("sw ${weatherData.winds.speed.toString()} M/s", style: TextStyle(color: Colors.white)),
+                  Padding(padding: EdgeInsets.only(bottom: 10.0)),
+                  Text("Visibility", style: TextStyle(color: Colors.white)),
+                  Text("${weatherData.visibility} Mt", style: TextStyle(color: Colors.white)),
+                  Padding(padding: EdgeInsets.only(bottom: 10.0)),
+                  Text("Sunset", style: TextStyle(color: Colors.white)),
+                  Text(DateFormat("hh:mm a").format(weatherData.systems.sunrise), style: TextStyle(color: Colors.white))
+                ],
+              ),
+            ],
+          ),
+        ),
+        IconButton(
+            icon: Icon(Icons.refresh),
+            tooltip: 'Refresh',
+            onPressed: () {
+              loadWeather();
+            }
+        )
+      ],
     );
   }
 
@@ -291,24 +205,6 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => _renderCard(context, forecastData.list.elementAt(index))),
     );
-  }
-
-
-
-  List<Widget> _renderBody(BuildContext context, Weather item) {
-    var result = List<Widget>();
-    result.add(Text(item.name));
-    result.add(Text(item.overalls.main));
-    result.add(Text(temp(item.numbers.temp)));
-    result.add(Image.network("https://openweathermap.org/img/w/${item.overalls.icon}.png"));
-    result.add(Text(DateFormat("MM-dd-yyyy").format(item.currentTime)));
-    result.add(Text(DateFormat("hh:mm a").format(item.currentTime)));
-    result.add(IconButton(
-        icon: Icon(Icons.refresh),
-        tooltip: 'Refresh',
-        onPressed: () {}
-    ));
-    return result;
   }
 
   Widget _renderCard(BuildContext context, Weather item){
