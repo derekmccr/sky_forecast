@@ -144,10 +144,10 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(weatherData.name, style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white)),
-        Text(weatherData.overalls.description, style: TextStyle(fontSize: 18.0, color: Colors.white)),
+        Text(weatherData.name, style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Muli")),
+        Text(weatherData.overalls.description, style: TextStyle(fontSize: 18.0, color: Colors.white, fontFamily: "Ralw")),
         Image.network("https://openweathermap.org/img/w/${weatherData.overalls.icon}.png"),
-        Text(temp(weatherData.numbers.temp), style: TextStyle(fontSize: 18.0, color: Colors.white)),
+        Text(temp(weatherData.numbers.temp), style: TextStyle(fontSize: 18.0, color: Colors.white, fontFamily: "Mons")),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 2.5),
           child: Divider(color: Colors.white),
@@ -161,9 +161,9 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text("Temp Min", style: TextStyle(color: Colors.white)),
-                  Text(temp(weatherData.numbers.tempMin), style: TextStyle(color: Colors.white, fontFamily: "Muli-Regular")),
+                  Text(temp(weatherData.numbers.tempMin), style: TextStyle(color: Colors.white, fontFamily: "Rale")),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
-                  Text("Temp Max", style: TextStyle(color: Colors.white, fontFamily: "Muli")),
+                  Text("Temp Max", style: TextStyle(color: Colors.white, fontFamily: "Mons")),
                   Text(temp(weatherData.numbers.tempMax), style: TextStyle(color: Colors.white)),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
                   Text("Sunrise", style: TextStyle(color: Colors.white)),
