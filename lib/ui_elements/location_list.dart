@@ -16,10 +16,10 @@ class LocationList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Locations"),
+        title: Text("Locations", style: TextStyle(fontWeight: FontWeight.bold)),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.search),
+              icon: Icon(Icons.search, color: const Color(0xFF1EB980)),
               onPressed: (){
                 Navigator.push(context,
                   MyCustomRoute(builder: (context) => SearchPage()),
@@ -27,7 +27,7 @@ class LocationList extends StatelessWidget {
               },
           ),
           IconButton(
-            icon: Icon(Icons.more_vert),
+            icon: Icon(Icons.more_vert, color: const Color(0xFF1EB980)),
             onPressed: (){
               Navigator.push(context,
                 MyCustomRoute(builder: (context) => SettingsPage()),
@@ -58,10 +58,10 @@ class LocationList extends StatelessWidget {
     );
   }
 
-  void _navigateToLocationDetail(BuildContext context, Location locationn) {
+  void _navigateToLocationDetail(BuildContext context, Location location) {
     Navigator.push(context,
         MaterialPageRoute(
-          builder: (context) => SavedLocationPage(location: locationn,),
+          builder: (context) => SavedLocationPage(location: location,),
         ));
   }
 
@@ -69,7 +69,7 @@ class LocationList extends StatelessWidget {
     return SizedBox(
       height: 100.0,
         child: Card(
-            color: new Color(0xFF363640),
+            color: Color.fromRGBO(54, 54, 64, .7),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[

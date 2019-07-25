@@ -4,17 +4,25 @@ import 'package:flutter/material.dart';
 
 class Styles{
   static final String _fontNameDefault = "Muli";
+  static final String _fontNameAccent = "Rale";
+  static final Color _textColorDefault = _hexToColor("FFFFFF");
 
   static final infoSmall = TextStyle(
-    fontFamily: "Rale",
+    fontFamily: _fontNameAccent,
     fontSize: 14,
-    color: Colors.white
+    color: _textColorDefault
   );
   static final metricReading = TextStyle(
     fontFamily: _fontNameDefault,
     fontSize: 18,
     fontWeight: FontWeight.bold,
-    color: Colors.white
+    color: _textColorDefault
+  );
+
+  static final cardInfo = TextStyle(
+    fontFamily: _fontNameAccent,
+    color: _textColorDefault,
+    fontWeight: FontWeight.w600
   );
 
 

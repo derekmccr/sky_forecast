@@ -42,17 +42,16 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: new Color(0xFF363640),
         leading: IconButton(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home, color: const Color(0xFF1EB980)),
             onPressed: (){
               Navigator.of(context).popUntil((route) => route.isFirst);
             }
         ),
-        title: Text("Weather", style: TextStyle(fontFamily: "Muli", fontWeight: FontWeight.bold)),
+        title: Text("Weather", style: TextStyle(fontWeight: FontWeight.bold)),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.more_vert),
+            icon: Icon(Icons.more_vert, color: const Color(0xFF1EB980)),
             onPressed: (){
               Navigator.push(context,
                 MyCustomRoute(builder: (context) => SettingsPage()),
@@ -63,7 +62,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: new Color(0xFF363640)
+          color: Theme.of(context).primaryColor
         ),
         child: Center(
           child: isLoading ? CircularProgressIndicator(
@@ -96,7 +95,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
         Image.network("https://openweathermap.org/img/w/${weatherData.overalls.icon}.png"),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 2.5),
-          child: Divider(color: Colors.white),
+          child: Divider(color: new Color(0xFF1EB980)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -133,7 +132,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
           ),
         ),
         IconButton(
-            icon: Icon(Icons.refresh, color: Colors.white),
+            icon: Icon(Icons.refresh, color: new Color(0xFF1EB980)),
             tooltip: 'Refresh',
             onPressed: () {
               loadWeather();
@@ -155,16 +154,20 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
 
   Widget _renderCard(BuildContext context, Weather item){
     return Card(
+      color: Color.fromRGBO(54, 54, 64, .7),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(item.overalls.main, style: TextStyle(fontFamily: "Mons")),
-            Text(temp(item.numbers.temp), style: TextStyle(fontFamily: "Mons")),
+            Text(temp(item.numbers.temp), style: Styles.cardInfo),
+            Padding(padding: const EdgeInsets.only(bottom: 5.0)),
+            Text(item.overalls.main, style: Styles.cardInfo),
+            Padding(padding: const EdgeInsets.only(bottom: 5.0)),
             Image.network("https://openweathermap.org/img/w/${item.overalls.icon}.png"),
-            Text(DateFormat("MM-dd-yyyy").format(item.currentTime), style: TextStyle(fontFamily: "Mons")),
-            Text(DateFormat("hh:mm a").format(item.currentTime), style: TextStyle(fontFamily: "Mons")),
+            Text(DateFormat("MM-dd-yyyy").format(item.currentTime), style: Styles.cardInfo),
+            Padding(padding: const EdgeInsets.only(bottom: 2.5)),
+            Text(DateFormat("hh:mm a").format(item.currentTime), style: Styles.cardInfo),
           ],
         ),
       ),
@@ -178,12 +181,12 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
     double result;
     if(metric == "f"){
       result = input * (9/5) - 459.67;
-      String temp = "${result.toStringAsFixed(2)} °F";
+      String temp = "${result.toStringAsFixed(0)} °F";
       return temp;
     }
     else{
       result = input - 273.15;
-      String temp = "${result.toStringAsFixed(2)} °C";
+      String temp = "${result.toStringAsFixed(0)} °C";
       return temp;
     }
   }
@@ -194,7 +197,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
     mile = input * 0.000621;
 
     String result;
-    result = mile.toStringAsFixed(3);
+    result = mile.toStringAsFixed(1);
     return result;
   }
 
@@ -224,7 +227,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
     mph = input * 2.2369;
 
     String result;
-    result = "${mph.toStringAsFixed(3)} mph";
+    result = "${mph.toStringAsFixed(1)} mph";
     return result;
   }
 

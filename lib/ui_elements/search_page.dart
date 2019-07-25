@@ -31,7 +31,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Search"),
+          title: Text("Search", style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         body: Center(
           child: Column(
@@ -39,10 +39,6 @@ class _SearchPageState extends State<SearchPage> {
               Column(children: <Widget>[
                 searchTextField = AutoCompleteTextField<Places>(
                   decoration: InputDecoration(
-                    /*suffixIcon: Container(
-                      width: 85.0,
-                      height: 60.0,
-                    ),*/
                     contentPadding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 20.0),
                     filled: true,
                     hintText: "Search City",
