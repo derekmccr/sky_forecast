@@ -17,7 +17,6 @@ class LocationList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Locations"),
-        backgroundColor: new Color(0xFF363640),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.search),
@@ -40,26 +39,8 @@ class LocationList extends StatelessWidget {
       body: Container(
         //add box single color
         decoration: BoxDecoration(
-          color: new Color(0xFF363640)
+          color: Theme.of(context).primaryColor
         ),
-        // Add box gradient decoration
-        /*decoration: BoxDecoration(
-          // Box decoration takes a gradient
-          gradient: LinearGradient(
-            // Where the linear gradient begins and ends
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            // Add one stop for each color. Stops should increase from 0 to 1
-            stops: [0.1, 0.5, 0.7, 0.9],
-            colors: [
-              // Colors are easy thanks to Flutter's Colors class.
-              Colors.indigo[800],
-              Colors.indigo[700],
-              Colors.indigo[600],
-              Colors.indigo[400],
-            ],
-          ),
-        ),*/
         child: ListView.builder(
           itemCount: this.locations.length,
           itemBuilder: _listViewItemBuilder,
@@ -73,7 +54,7 @@ class LocationList extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => _navigateToLocationDetail(context, location),
-      child: _itemCard(location),
+      child: _itemCard(location, context),
     );
   }
 
@@ -84,11 +65,11 @@ class LocationList extends StatelessWidget {
         ));
   }
 
-  Widget _itemCard(Location location){
+  Widget _itemCard(Location location, BuildContext context){
     return SizedBox(
       height: 100.0,
         child: Card(
-            //color: Color(0xff348AA7),
+            color: new Color(0xFF363640),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -115,7 +96,7 @@ class LocationList extends StatelessWidget {
     return Text(location.name,
       style: TextStyle(
         fontSize: 25.0,
-        color: Colors.black,
+        color: Colors.white
       ),
     );
   }

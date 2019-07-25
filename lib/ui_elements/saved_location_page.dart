@@ -10,6 +10,7 @@ import '../Services/forecast_api.dart';
 import 'package:intl/intl.dart';
 import 'package:preferences/preferences.dart';
 import 'settings.dart';
+import 'styles.dart';
 
 //TODO: add favorite button to toggle if want location saved or not
 
@@ -39,60 +40,6 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
 
   @override
   Widget build(BuildContext context) {
-    //want appBar to be transparent and share background of whole page, thus need for use of stack
-    /*return Stack(
-      children: <Widget>[
-        Container(
-          height: double.infinity,
-          width: double.infinity,
-          //this decorations sets background of full page
-          decoration: new BoxDecoration(
-            color: Colors.blueGrey,
-          ),
-        ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            leading: IconButton(
-                icon: Icon(Icons.home),
-                onPressed: (){
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                }
-            ),
-            title: Text("Weather"),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: (){
-                  Navigator.push(context,
-                    MyCustomRoute(builder: (context) => SettingsPage()),
-                  );
-                },
-              )
-            ],
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-          ),
-          body: Center(
-            child: isLoading ? CircularProgressIndicator(
-              strokeWidth: 2.0,
-              valueColor: AlwaysStoppedAnimation(Colors.white),
-              ) : Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Expanded(
-                    child: weatherData != null ? _currentWeatherView(context, weatherData) : Container(child: Text("Weather Unavailable."),)
-                ),
-                SafeArea(
-                    minimum: EdgeInsets.all(8.0),
-                    child: forecastData != null ? _forecastWeatherView(context, forecastData) : Container(child: Text("Forecast Unavailable."),)
-                )
-              ],
-            ),
-          ),
-        )
-      ],
-    );*/
     return Scaffold(
       appBar: AppBar(
         backgroundColor: new Color(0xFF363640),
@@ -102,7 +49,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
               Navigator.of(context).popUntil((route) => route.isFirst);
             }
         ),
-        title: Text("Weather", style: TextStyle(fontFamily: "Muli"),),
+        title: Text("Weather", style: TextStyle(fontFamily: "Muli", fontWeight: FontWeight.bold)),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.more_vert),
@@ -143,10 +90,10 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(weatherData.name, style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Muli")),
-        Text(weatherData.overalls.description, style: TextStyle(fontSize: 18.0, color: Colors.white, fontFamily: "Ralw")),
+        Text(weatherData.name, style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Muli")),
+        Text(temp(weatherData.numbers.temp), style: TextStyle(fontSize: 24.0, color: Colors.white, fontFamily: "Muli")),
+        Text(weatherData.overalls.description, style: TextStyle(fontSize: 18.0, color: Colors.white, fontFamily: "Muli")),
         Image.network("https://openweathermap.org/img/w/${weatherData.overalls.icon}.png"),
-        Text(temp(weatherData.numbers.temp), style: TextStyle(fontSize: 18.0, color: Colors.white, fontFamily: "Mons")),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 2.5),
           child: Divider(color: Colors.white),
@@ -159,34 +106,34 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("Temp Min", style: TextStyle(color: Colors.white)),
-                  Text(temp(weatherData.numbers.tempMin), style: TextStyle(color: Colors.white, fontFamily: "Rale")),
+                  Text("Temp Min", style: Styles.infoSmall),
+                  Text(temp(weatherData.numbers.tempMin), style: Styles.metricReading),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
-                  Text("Temp Max", style: TextStyle(color: Colors.white, fontFamily: "Mons")),
-                  Text(temp(weatherData.numbers.tempMax), style: TextStyle(color: Colors.white)),
+                  Text("Temp Max", style: Styles.infoSmall),
+                  Text(temp(weatherData.numbers.tempMax), style: Styles.metricReading),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
-                  Text("Sunrise", style: TextStyle(color: Colors.white)),
-                  Text(DateFormat("hh:mm a").format(weatherData.systems.sunrise), style: TextStyle(color: Colors.white)),
+                  Text("Sunrise", style: Styles.infoSmall),
+                  Text(DateFormat("hh:mm a").format(weatherData.systems.sunrise), style: Styles.metricReading),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("Wind", style: TextStyle(color: Colors.white)),
-                  Text("${deg(weatherData.winds.degree)} ${mPh(weatherData.winds.speed)}", style: TextStyle(color: Colors.white)),
+                  Text("Wind", style: Styles.infoSmall),
+                  Text("${deg(weatherData.winds.degree)} ${mPh(weatherData.winds.speed)}", style: Styles.metricReading),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
-                  Text("Visibility", style: TextStyle(color: Colors.white)),
-                  Text("${miles(weatherData.visibility)} mi.", style: TextStyle(color: Colors.white)),
+                  Text("Visibility", style: Styles.infoSmall),
+                  Text("${miles(weatherData.visibility)} mi.", style: Styles.metricReading),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
-                  Text("Sunset", style: TextStyle(color: Colors.white)),
-                  Text(DateFormat("hh:mm a").format(weatherData.systems.sunrise), style: TextStyle(color: Colors.white))
+                  Text("Sunset", style: Styles.infoSmall),
+                  Text(DateFormat("hh:mm a").format(weatherData.systems.sunrise), style: Styles.metricReading)
                 ],
               ),
             ],
           ),
         ),
         IconButton(
-            icon: Icon(Icons.refresh),
+            icon: Icon(Icons.refresh, color: Colors.white),
             tooltip: 'Refresh',
             onPressed: () {
               loadWeather();
@@ -213,11 +160,11 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(item.overalls.main),
-            Text(temp(item.numbers.temp)),
+            Text(item.overalls.main, style: TextStyle(fontFamily: "Mons")),
+            Text(temp(item.numbers.temp), style: TextStyle(fontFamily: "Mons")),
             Image.network("https://openweathermap.org/img/w/${item.overalls.icon}.png"),
-            Text(DateFormat("MM-dd-yyyy").format(item.currentTime)),
-            Text(DateFormat("hh:mm a").format(item.currentTime)),
+            Text(DateFormat("MM-dd-yyyy").format(item.currentTime), style: TextStyle(fontFamily: "Mons")),
+            Text(DateFormat("hh:mm a").format(item.currentTime), style: TextStyle(fontFamily: "Mons")),
           ],
         ),
       ),

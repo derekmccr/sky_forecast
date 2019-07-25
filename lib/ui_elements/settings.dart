@@ -120,7 +120,7 @@ class SettingsPage extends StatelessWidget{
   }
 
   _currentTheme(String val){
-    String current = PrefService.getString("ui_theme") ?? "light";
+    String current = PrefService.getString("ui_theme") ?? "dark";
     if(current == val)
       return true;
     else
