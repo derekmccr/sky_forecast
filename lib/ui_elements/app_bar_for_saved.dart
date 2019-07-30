@@ -51,7 +51,7 @@ class _SavedAppBarWidgetState extends State<SavedAppBarWidget> {
       title: Text("Weather", style: TextStyle(fontWeight: FontWeight.bold)),
       actions: <Widget>[
         IconButton(
-          icon: (_isSaved ? Icon(Icons.bookmark) : Icon(Icons.bookmark_border)),
+          icon: (_isSaved ? Icon(Icons.bookmark, color: const Color(0xFF1EB980)) : Icon(Icons.bookmark_border)),
           onPressed: _toggleSaved,
         ),
         IconButton(

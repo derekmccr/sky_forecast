@@ -48,10 +48,10 @@ class _LocationListViewState extends State<LocationListView> {
           )
         ],
       ),
-      body: ListView.builder(
+      body: items != null ? ListView.builder(
         itemCount: this.items.length,
         itemBuilder: _listViewItemBuilder,
-      ),
+      ) : Center(child: Text("No Saved Locations"))
     );
   }
 
