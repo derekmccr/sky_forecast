@@ -13,6 +13,7 @@ class DatabaseHelper {
   final String columnId = "id";
   final String columnName = "name";
   final String columnLocId = "locId";
+  final String columnFreg = "freq";
 
   DatabaseHelper.internal();
 
@@ -27,11 +28,18 @@ class DatabaseHelper {
 
   initDb() async {
     String path = join(await getDatabasesPath(), "locations.db");
-    var db = await openDatabase(path, version: 1, onCreate: _onCreate);
+    var db = await openDatabase(path, version: 2, onCreate: _onCreate, onUpgrade: _onUpgrade);
     return db;
   }
 
   void _onCreate(Database db, int newVersion) async {
+    await db.execute(
+        "CREATE TABLE $table("
+            "$columnId INTEGER PRIMARY KEY, "
+            "$columnName TEXT, "
+            "$columnFreg INTEGER)");
+  }
+  void _onUpgrade(Database db, int oldVersion, int newVersion) async {
     await db.execute(
         "CREATE TABLE $table("
             "$columnId INTEGER PRIMARY KEY, "
