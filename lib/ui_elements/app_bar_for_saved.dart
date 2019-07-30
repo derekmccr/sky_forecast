@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import '../Models/location_database_model.dart';
-import '../Models/location_search_model.dart';
 import '../Services/database_helper.dart';
 import 'settings.dart';
 
-class SavedWidget extends StatefulWidget {
-  final Places item;
-  SavedWidget({Key key, this.item});
+class SavedAppBarWidget extends StatefulWidget {
+  final Location item;
+  SavedAppBarWidget({Key key, this.item});
 
   @override
-  _SavedWidgetState createState() => _SavedWidgetState();
+  _SavedAppBarWidgetState createState() => _SavedAppBarWidgetState();
 }
 
-class _SavedWidgetState extends State<SavedWidget> {
+class _SavedAppBarWidgetState extends State<SavedAppBarWidget> {
   final DatabaseHelper db = DatabaseHelper();
   var _isSaved;
 
@@ -20,19 +19,19 @@ class _SavedWidgetState extends State<SavedWidget> {
   void initState() {
     super.initState();
 
-    _isSaved = db.searchLocation(widget.item.id);
+    _isSaved = db.searchLocation(widget.item.locId);
   }
 
   void _toggleSaved() {
     setState(() {
       if (_isSaved) {
         _isSaved = false;
-        db.deleteLocation(widget.item.id);
+        db.deleteLocation(widget.item.locId);
       }
       else {
         _isSaved = true;
         Location save = new Location(
-          locId: widget.item.id,
+          locId: widget.item.locId,
           name: widget.item.name,
         );
         db.saveLocation(save);
@@ -41,21 +40,6 @@ class _SavedWidgetState extends State<SavedWidget> {
   }
 
   @override
-  /*Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          padding: EdgeInsets.all(0),
-          child: IconButton(
-            icon: (_isSaved ? Icon(Icons.bookmark) : Icon(Icons.bookmark_border)),
-            onPressed: _toggleSaved,
-          ),
-        ),
-      ],
-    );
-  }*/
-
   Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(

@@ -11,6 +11,8 @@ import 'package:intl/intl.dart';
 import 'package:preferences/preferences.dart';
 import 'settings.dart';
 import 'styles.dart';
+import 'app_bar_for_saved.dart';
+import '../Services/database_helper.dart';
 
 //TODO: add favorite button to toggle if want location saved or not
 
@@ -29,13 +31,16 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
   Forecast forecastData;
   final WeatherApi currentWeather = WeatherApi();
   final ForecastApi forecastWeather = ForecastApi();
+  final DatabaseHelper db = DatabaseHelper();
   String error;
+  var _isSaved;
 
   @override
   void initState() {
     super.initState();
 
     loadWeather();
+    _isSaved = _isSaved = db.searchLocation(widget.location.locId);
   }
 
   @override
@@ -50,6 +55,11 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
         ),
         title: Text("Weather", style: TextStyle(fontWeight: FontWeight.bold)),
         actions: <Widget>[
+          SavedAppBarWidget(item: widget.location),
+          IconButton(
+            icon: (_isSaved ? Icon(Icons.bookmark) : Icon(Icons.bookmark_border)),
+            onPressed: _toggleSaved,
+          ),
           IconButton(
             icon: Icon(Icons.more_vert, color: const Color(0xFF1EB980)),
             onPressed: (){
@@ -95,7 +105,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
         Image.network("https://openweathermap.org/img/w/${weatherData.overalls.icon}.png"),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 2.5),
-          child: Divider(color: new Color(0xFF1EB980)),
+          child: Divider(color: const Color(0xFF1EB980)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -132,7 +142,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
           ),
         ),
         IconButton(
-            icon: Icon(Icons.refresh, color: new Color(0xFF1EB980)),
+            icon: Icon(Icons.refresh, color: const Color(0xFF1EB980)),
             tooltip: 'Refresh',
             onPressed: () {
               loadWeather();
@@ -250,6 +260,23 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
 
     setState(() {
       isLoading = false;
+    });
+  }
+
+  void _toggleSaved() {
+    setState(() {
+      if (_isSaved) {
+        _isSaved = false;
+        db.deleteLocation(widget.location.locId);
+      }
+      else {
+        _isSaved = true;
+        Location save = new Location(
+          locId: widget.location.locId,
+          name: widget.location.name,
+        );
+        db.saveLocation(save);
+      }
     });
   }
 }
