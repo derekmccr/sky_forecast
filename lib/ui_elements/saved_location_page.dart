@@ -31,7 +31,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
   Forecast forecastData;
   final WeatherApi currentWeather = WeatherApi();
   final ForecastApi forecastWeather = ForecastApi();
-  final DatabaseHelper db = DatabaseHelper();
+  final db = DatabaseHelper.instance;
   String error;
   var _isSaved;
 
@@ -40,7 +40,6 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
     super.initState();
 
     loadWeather();
-    _isSaved = _isSaved = db.searchLocation(widget.location.locId);
   }
 
   @override
@@ -56,10 +55,6 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
         title: Text("Weather", style: TextStyle(fontWeight: FontWeight.bold)),
         actions: <Widget>[
           SavedAppBarWidget(item: widget.location),
-          IconButton(
-            icon: (_isSaved ? Icon(Icons.bookmark) : Icon(Icons.bookmark_border)),
-            onPressed: _toggleSaved,
-          ),
           IconButton(
             icon: Icon(Icons.more_vert, color: const Color(0xFF1EB980)),
             onPressed: (){
@@ -267,12 +262,12 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
     setState(() {
       if (_isSaved) {
         _isSaved = false;
-        db.deleteLocation(widget.location.locId);
+        db.deleteLocation(widget.location.id);
       }
       else {
         _isSaved = true;
         Location save = new Location(
-          locId: widget.location.locId,
+          id: widget.location.id,
           name: widget.location.name,
         );
         db.saveLocation(save);

@@ -42,7 +42,7 @@ class _SearchPageState extends State<SearchPage> {
                     contentPadding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 20.0),
                     filled: true,
                     hintText: "Search City",
-                    hintStyle: TextStyle(color: Colors.black)
+                    hintStyle: TextStyle(color: Colors.white)
                   ),
                   itemSubmitted: (item) {
                     setState(() => searchTextField.textField.controller.text = item.name);
@@ -80,11 +80,11 @@ class _SearchPageState extends State<SearchPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(item.name),
+          Text(item.name, style: TextStyle(color: Colors.white)),
           Padding(
             padding: EdgeInsets.all(15.0),
           ),
-          Text(item.country)
+          Text(item.country, style: TextStyle(color: Colors.white))
         ],
       ),
     );

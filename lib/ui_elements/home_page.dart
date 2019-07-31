@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../Services/database_helper.dart';
+import '../Services/weather_api.dart';
 import 'package:sky_forecast/Models/location_database_model.dart';
 import 'saved_location_page.dart';
 import 'settings.dart';
+import 'search_page.dart';
 
 class LocationListView extends StatefulWidget {
   @override
@@ -11,7 +13,9 @@ class LocationListView extends StatefulWidget {
 
 class _LocationListViewState extends State<LocationListView> {
   List<Location> items = new List();
-  DatabaseHelper db = new DatabaseHelper();
+  final dbHelper = DatabaseHelper.instance;
+  final WeatherApi api = new WeatherApi();
+  bool isLoading = false;
 
   //placeholder until api solved
   final String url = "https://openweathermap.org/img/w/01d.png";
@@ -23,12 +27,21 @@ class _LocationListViewState extends State<LocationListView> {
   void initState() {
     super.initState();
 
-    db.getAllLocations().then((locations) {
-      setState(() {
-        locations.forEach((location) {
-          items.add(location);
-        });
-      });
+    loadLocations();
+  }
+
+  loadLocations() async{
+    setState(() {
+      isLoading = true;
+    });
+    items = await dbHelper.getAllLocations();
+
+    if(items.length == 0){
+      print("no locations");
+    }
+
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -39,7 +52,15 @@ class _LocationListViewState extends State<LocationListView> {
         title: Text("Locations"),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.more_vert, color: Colors.white,),
+            icon: Icon(Icons.search, color: const Color(0xFF1EB980)),
+            onPressed: (){
+              Navigator.push(context,
+                MyCustomRoute(builder: (context) => SearchPage()),
+              );
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.more_vert, color: const Color(0xFF1EB980)),
             onPressed: (){
               Navigator.push(context,
                 MyCustomRoute(builder: (context) => SettingsPage()),
@@ -48,14 +69,56 @@ class _LocationListViewState extends State<LocationListView> {
           )
         ],
       ),
-      body: items != null ? ListView.builder(
-        itemCount: this.items.length,
-        itemBuilder: _listViewItemBuilder,
-      ) : Center(child: Text("No Saved Locations"))
+      body: Center(
+        child: isLoading ? CircularProgressIndicator(
+          strokeWidth: 2.0,
+          valueColor: AlwaysStoppedAnimation(Colors.white),
+        ) : Center(
+          child: items.length != 0 ? ListView.builder(
+                itemCount: this.items.length,
+                itemBuilder: _futureBuilder,
+              ): Center(child: Column(children: <Widget>[
+            Text("No Saved Locations", style: TextStyle(color: Colors.white)),
+            IconButton(
+                icon: Icon(Icons.refresh, color: const Color(0xFF1EB980)),
+                tooltip: 'Refresh',
+                onPressed: () {
+                  loadLocations();
+                }
+            )
+          ],)),
+        ),
+      ),
+      /*body: Center(
+        child: items.length != 0 ? Column(
+          children: <Widget>[
+            ListView.builder(
+              itemCount: this.items.length,
+              itemBuilder: _futureBuilder,
+            ),
+            IconButton(
+                icon: Icon(Icons.refresh, color: const Color(0xFF1EB980)),
+                tooltip: 'Refresh',
+                onPressed: () {
+                  loadLocations();
+                }
+            )
+          ],
+        ) : Center(child: Column(children: <Widget>[
+          Text("No Saved Locations", style: TextStyle(color: Colors.white)),
+          IconButton(
+              icon: Icon(Icons.refresh, color: const Color(0xFF1EB980)),
+              tooltip: 'Refresh',
+              onPressed: () {
+                loadLocations();
+              }
+          )
+        ],)),
+      )*/
     );
   }
 
-  Widget _listViewItemBuilder(BuildContext context, int index) {
+  /*Widget _listViewItemBuilder(BuildContext context, int index) {
     var location = this.items[index];
     return ListTile(
         contentPadding: EdgeInsets.all(10.0),
@@ -66,21 +129,46 @@ class _LocationListViewState extends State<LocationListView> {
           Navigator.push(context, MyCustomRoute(builder: (context) => SavedLocationPage()),);
         }
     );
-  }
-
-  Widget _itemThumbnail(Location location) {
-    return Container(
-      constraints: BoxConstraints.tightFor(width: 50.0),
-      child: Image.network(url, fit: BoxFit.fitWidth),
+  }*/
+  
+  Widget _futureBuilder(BuildContext context, int index){
+    var location = this.items[index];
+    return FutureBuilder(
+        future: api.fetchWeather(location.locId),
+        builder: (BuildContext context, AsyncSnapshot snapshot){
+          if(snapshot.hasData){
+            return ListTile(
+                contentPadding: EdgeInsets.all(10.0),
+                leading: _itemThumbnail(snapshot),
+                title: _itemTitle(snapshot),
+                subtitle: _itemSubtitle(snapshot),
+                onTap: () {
+                  Navigator.push(context, MyCustomRoute(builder: (context) => SavedLocationPage()),);
+                }
+            );
+          }
+          else{
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
+          }
+        }
     );
   }
 
-  Widget _itemTitle(Location location) {
-    return Text(location.name);
+  Widget _itemThumbnail(AsyncSnapshot snapshot) {
+    return Container(
+      constraints: BoxConstraints.tightFor(width: 50.0),
+      child: Image.network("https://openweathermap.org/img/w/${snapshot.data.overalls.icon}.png", fit: BoxFit.fitWidth),
+    );
   }
 
-  Widget _itemSubtitle(Location location){
-    return Text("Weather");
+  Widget _itemTitle(AsyncSnapshot snapshot) {
+    return Text(snapshot.data.name);
+  }
+
+  Widget _itemSubtitle(AsyncSnapshot snapshot){
+    return Text(snapshot.data.numbers.temp.toString());
   }
 
 }

@@ -3,19 +3,16 @@ import 'package:sky_forecast/Models/location_database_model.dart';
 class MockLocation extends Location{
   static final List<Location> items = [
     Location(
-      id: 1,
+      id: 4167147,
       name: "Orlando",
-      locId: 4167147,
     ),
     Location(
-      id: 2,
+      id: 5368361,
       name: "Los Angles",
-      locId: 5368361,
     ),
     Location(
-      id: 3,
+      id: 4174757,
       name: "Tampa",
-      locId: 4174757,
     )
   ];
 

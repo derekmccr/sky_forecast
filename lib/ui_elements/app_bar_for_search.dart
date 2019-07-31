@@ -1,44 +1,63 @@
 import 'package:flutter/material.dart';
 import '../Models/location_search_model.dart';
-import '../Models/location_database_model.dart';
 import '../Services/database_helper.dart';
 import 'settings.dart';
 
-class SearchedAppBarWidget extends StatefulWidget {
+
+class SearchedAppBarWidget extends StatefulWidget implements PreferredSizeWidget{
   final Places item;
-  SearchedAppBarWidget({Key key, this.item});
+  SearchedAppBarWidget({Key key, this.item}): preferredSize = Size.fromHeight(56.0), super(key: key);
+
+  @override
+  final Size preferredSize;
 
   @override
   _SearchedAppBarWidgetState createState() => _SearchedAppBarWidgetState();
 }
 
 class _SearchedAppBarWidgetState extends State<SearchedAppBarWidget> {
-  final DatabaseHelper db = DatabaseHelper();
-  var _isSaved;
+  final db = DatabaseHelper.instance;
+  bool _isSaved = false;
 
   @override
   void initState() {
     super.initState();
 
-    _isSaved = db.searchLocation(widget.item.id);
+    loadState();
   }
 
   void _toggleSaved() {
     setState(() {
       if (_isSaved) {
         _isSaved = false;
-        db.deleteLocation(widget.item.id);
+        removePlace();
       }
       else {
         _isSaved = true;
-        Location save = new Location(
-          locId: widget.item.id,
-          name: widget.item.name,
-        );
-        db.saveLocation(save);
+        savePlace();
       }
     });
   }
+
+  loadState() async{
+    _isSaved = await db.searchLocation(widget.item.id);
+  }
+
+  removePlace() async{
+    var remove = await db.deletePlace(widget.item.id);
+    if(remove == 1){
+      print("place deleted");
+    }
+  }
+
+  savePlace() async{
+    var save = await db.savePlace(widget.item);
+    if(save != 0){
+      print("place added");
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

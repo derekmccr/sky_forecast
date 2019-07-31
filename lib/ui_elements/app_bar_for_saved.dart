@@ -12,7 +12,7 @@ class SavedAppBarWidget extends StatefulWidget {
 }
 
 class _SavedAppBarWidgetState extends State<SavedAppBarWidget> {
-  final DatabaseHelper db = DatabaseHelper();
+  final db = DatabaseHelper.instance;
   var _isSaved;
 
   @override
@@ -26,15 +26,11 @@ class _SavedAppBarWidgetState extends State<SavedAppBarWidget> {
     setState(() {
       if (_isSaved) {
         _isSaved = false;
-        db.deleteLocation(widget.item.locId);
+        db.deleteLocation(widget.item.id);
       }
       else {
         _isSaved = true;
-        Location save = new Location(
-          locId: widget.item.locId,
-          name: widget.item.name,
-        );
-        db.saveLocation(save);
+        db.saveLocation(widget.item);
       }
     });
   }

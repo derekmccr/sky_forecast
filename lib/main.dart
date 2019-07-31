@@ -3,6 +3,7 @@ import 'Mocks/location_mocks.dart';
 import 'ui_elements/location_list.dart';
 import 'package:preferences/preferences.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'ui_elements/home_page.dart';
 
 main() async {
   await PrefService.init(prefix: "_pref");
@@ -40,8 +41,8 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: "Sky Forecast",
           theme: theme,
-          //home: LocationListView(),
-          home: LocationList(mockLocations),
+          home: LocationListView(),
+          //home: LocationList(mockLocations),
         );
       },
     );

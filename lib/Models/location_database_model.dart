@@ -3,20 +3,23 @@ class Location{
   final int id;
   final int locId;
 
-  Location({this.id, this.name, this. locId});
+  Location({this.id, this.name, this.locId});
 
-  Map<String, dynamic> toMap() {
-    return {
-      "id": id,
-      "name": name,
-      "locId": locId,
-    };
-  }
+  factory Location.fromMap(Map<String, dynamic> json) => new Location(
+    id: json["id"],
+    name: json["name"],
+    locId: json["locId"]
+  );
+
+  Map<String, dynamic> toMap() => {
+    "locId": locId,
+    "name": name,
+  };
 
   // Implement toString to make it easier to see information about
   // each dog when using the print statement.
   @override
   String toString() {
-    return "Location{id: $id, name: $name, locId: $locId}";
+    return "Location{id: $id, name: $name}";
   }
 }

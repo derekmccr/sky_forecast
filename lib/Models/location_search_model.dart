@@ -13,8 +13,15 @@ class Places{
     return Places(
         id: parsedJson["id"],
         name: parsedJson["name"] as String,
-        country: parsedJson['country'] as String
+        country: parsedJson["country"] as String
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "locId": id,
+      "name": name,
+    };
   }
 }
 
