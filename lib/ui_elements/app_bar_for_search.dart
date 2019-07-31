@@ -3,7 +3,7 @@ import '../Models/location_search_model.dart';
 import '../Services/database_helper.dart';
 import 'settings.dart';
 
-
+//builds stateful widget for appBar to implement searched location button for searched_location_page
 class SearchedAppBarWidget extends StatefulWidget implements PreferredSizeWidget{
   final Places item;
   SearchedAppBarWidget({Key key, this.item}): preferredSize = Size.fromHeight(56.0), super(key: key);

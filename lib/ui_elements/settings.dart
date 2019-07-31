@@ -3,68 +3,9 @@ import 'package:preferences/preferences.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import '../Services/preferences_helper.dart';
 
-//stateful
-/*class SettingsPage extends StatefulWidget {
-
-  @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage>{
-
-  void _loadData() async {
-      await PrefService.init(prefix: "_pref");
-  }
-
-  @override
-  void initState() {
-    _loadData();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Settings"),
-      ),
-      body: PreferencePage([
-        PreferenceTitle("Temperature Metric"),
-        RadioPreference(
-          "fahrenheit",
-          "f",
-          "temp_metric",
-          isDefault: true,
-        ),
-        RadioPreference(
-          "celsius",
-          "c",
-          "temp_metric",
-        ),
-        PreferenceTitle('Personalization'),
-        RadioPreference(
-          'Light Theme',
-          'light',
-          'ui_theme',
-          isDefault: true,
-          onSelect: (){
-            DynamicTheme.of(context).setBrightness(Brightness.light);
-          },
-        ),
-        RadioPreference(
-          'Dark Theme',
-          'dark',
-          'ui_theme',
-          onSelect: () {
-            DynamicTheme.of(context).setBrightness(Brightness.dark);
-          }
-        ),
-      ]),
-    );
-  }
-}*/
-
-//stateless
-
+//settings page so user can choose what metric they want to use
+/*THEME SELECTION WORKS BUT DOESN'T CHANGE MUCH AS I HARDCODED MOST OF COLORS IN APP - I LIKE THE SETTING BUT
+  PREFER THE COLOR SCHEME I HAD SET UP*/
 class SettingsPage extends StatelessWidget{
   final PreferencesHelper helper = PreferencesHelper();
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//general styles for easy reuse
 class Styles{
   static final String _fontNameDefault = "Muli";
   static final String _fontNameAccent = "Rale";

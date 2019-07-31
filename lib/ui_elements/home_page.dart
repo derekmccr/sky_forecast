@@ -8,6 +8,7 @@ import 'search_page.dart';
 import '../Models/weather_model.dart';
 import 'package:preferences/preferences.dart';
 
+//Home Page - houses list of all saved locations with brief overview for each location
 class LocationListView extends StatefulWidget {
   @override
   _LocationListViewState createState() => new _LocationListViewState();
@@ -22,7 +23,7 @@ class _LocationListViewState extends State<LocationListView> {
   //placeholder until api solved
   final String url = "https://openweathermap.org/img/w/01d.png";
 
-  // TODO: items.add needs to add weather info for each location ONCE API set up, currently no weather info
+  // TODO: work on cards & listview
 
   @override
   void initState() {

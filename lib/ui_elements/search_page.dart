@@ -3,6 +3,7 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import '../Models/location_search_model.dart';
 import 'searched_location_page.dart';
 
+//page for user to search for location with autocomplete - autocomplete from json list provided by openweatherApi
 class SearchPage extends StatefulWidget {
   @override
   _SearchPageState createState() => new _SearchPageState();

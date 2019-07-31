@@ -13,9 +13,8 @@ import 'styles.dart';
 import 'app_bar_for_saved.dart';
 import '../Services/database_helper.dart';
 
-//TODO: add favorite button to toggle if want location saved or not
 
-//page for create contact form, data will be sent to local database
+//page when user chooses saved location from home_page
 class SavedLocationPage extends StatefulWidget {
   final Location location;
   SavedLocationPage({Key key, this.location});

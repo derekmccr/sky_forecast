@@ -4,9 +4,7 @@ import 'saved_location_page.dart';
 import 'settings.dart';
 import 'search_page.dart';
 
-//TODO: build list from saved locations to users storage
-//TODO: fetch current weather for each location to show snapshot on each card
-
+//PAGE ONLY USED FOR TESTING ORIGINAL LAYOUTS
 class LocationList extends StatelessWidget {
   final List<Location> locations;
 

@@ -3,6 +3,7 @@ import '../Models/location_database_model.dart';
 import '../Services/database_helper.dart';
 import 'settings.dart';
 
+//builds stateful widget for appBar to implement saved location button for saved_location_page
 class SavedAppBarWidget extends StatefulWidget implements PreferredSizeWidget{
   final Location item;
   SavedAppBarWidget({Key key, this.item}): preferredSize = Size.fromHeight(56.0), super(key: key);
