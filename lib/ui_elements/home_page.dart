@@ -23,7 +23,7 @@ class _LocationListViewState extends State<LocationListView> {
   //placeholder until api solved
   final String url = "https://openweathermap.org/img/w/01d.png";
 
-  // TODO: work on cards & listview
+  // TODO: work on cards & list view
 
   @override
   void initState() {
@@ -160,21 +160,12 @@ class _LocationListViewState extends State<LocationListView> {
   }
 
   Widget _itemThumbnail(Weather item) {
-    return Container(
-      constraints: BoxConstraints.tightFor(width: 50.0),
-      child: Image.network(
+    return Image.network(
           "https://openweathermap.org/img/w/${item.overalls.icon}.png",
-          fit: BoxFit.fitWidth),
+          fit: BoxFit.fitWidth
     );
   }
 
-  Widget _itemTitle(Weather item) {
-    return Text(item.name);
-  }
-
-  Widget _itemSubtitle(Weather item) {
-    return Text(temp(item.numbers.temp));
-  }
   //Compute fahrenheit or celsius from kelvin reading in weather api depending on user preference
   String temp(double input){
     String metric = PrefService.getString("temp_metric");

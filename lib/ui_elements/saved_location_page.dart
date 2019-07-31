@@ -108,7 +108,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
                   Text("${miles(weatherData.visibility)} mi.", style: Styles.metricReading),
                   Padding(padding: EdgeInsets.only(bottom: 10.0)),
                   Text("Sunset", style: Styles.infoSmall),
-                  Text(DateFormat("hh:mm a").format(weatherData.systems.sunrise), style: Styles.metricReading)
+                  Text(DateFormat("hh:mm a").format(weatherData.systems.sunset), style: Styles.metricReading)
                 ],
               ),
             ],
