@@ -35,48 +35,51 @@ class _SearchPageState extends State<SearchPage> {
           title: Text("Search", style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         body: Center(
-          child: Column(
-            children: <Widget>[
-              Column(children: <Widget>[
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor
+              ),
+              child: Column(children: <Widget>[
                 searchTextField = AutoCompleteTextField<Places>(
-                  decoration: InputDecoration(
+                decoration: InputDecoration(
                     contentPadding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 20.0),
                     filled: true,
                     hintText: "Search City",
-                    hintStyle: TextStyle(color: Colors.white)
-                  ),
-                  itemSubmitted: (item) {
-                    setState(() => searchTextField.textField.controller.text = item.name);
-                  },
-                  clearOnSubmit: false,
-                  key: key,
-                  suggestions: PlacesViewModel.places,
-                  itemBuilder: (context, item) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(
-                              builder: (context) => SearchedLocationPage(place: item,),
-                            )
-                        );
-                      },
-                      child: _itemCard(item),
-                    );
-                  },
-                  itemSorter: (a, b) {
-                    return a.name.compareTo(b.name);
-                  },
-                  itemFilter: (item, query) {
-                    return item.name.toLowerCase().startsWith(query.toLowerCase());
-                  }
-                ),
-              ]),
-          ])
-        )
-    );
+                    hintStyle: TextStyle(color: Colors.white)),
+                itemSubmitted: (item) {
+                  setState(() =>
+                      searchTextField.textField.controller.text = item.name);
+                },
+                clearOnSubmit: false,
+                key: key,
+                suggestions: PlacesViewModel.places,
+                itemBuilder: (context, item) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchedLocationPage(
+                              place: item,
+                            ),
+                          ));
+                    },
+                    child: _itemCard(item),
+                  );
+                },
+                itemSorter: (a, b) {
+                  return a.name.compareTo(b.name);
+                },
+                itemFilter: (item, query) {
+                  return item.name
+                      .toLowerCase()
+                      .startsWith(query.toLowerCase());
+                }),
+          ]),
+        )));
   }
 
-  Widget _itemCard(Places item){
+  Widget _itemCard(Places item) {
     return Card(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -134,23 +134,28 @@ class _LocationListViewState extends State<LocationListView> {
   }
 
   Widget _itemCard(Weather item, BuildContext context){
-    return SizedBox(
-        height: 100.0,
-        child: Card(
-            color: Color.fromRGBO(54, 54, 64, .7),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                ListTile(
-                  contentPadding: EdgeInsets.only(top: 15.0),
-                  leading: _itemThumbnail(item),
-                  title: _itemTitle(item),
-                  subtitle: _itemSubtitle(item),
-                ),
-              ],
-            ),
-            margin: EdgeInsets.all(5.0)
-        )
+    return Card(
+      elevation: 5.0,
+      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      child: Container(
+        decoration: BoxDecoration(color: Color.fromRGBO(54, 54, 64, .7)),
+        child: _makeListTile(item),
+      ),
+    );
+  }
+
+  Widget _makeListTile(Weather item){
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      leading: Container(
+        padding: const EdgeInsets.only(right: 12.0),
+        decoration:  BoxDecoration(
+            border:  Border(
+                right:  BorderSide(width: 1.0, color: const Color(0xFF1EB980)))),
+        child: _itemThumbnail(item),
+      ),
+      title: Text(item.name, style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Muli")),
+      trailing: Text(temp(item.numbers.temp), style: TextStyle(fontSize: 24.0, color: Colors.white, fontFamily: "Muli")),
     );
   }
 
