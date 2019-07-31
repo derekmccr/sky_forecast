@@ -3,9 +3,12 @@ import '../Models/location_database_model.dart';
 import '../Services/database_helper.dart';
 import 'settings.dart';
 
-class SavedAppBarWidget extends StatefulWidget {
+class SavedAppBarWidget extends StatefulWidget implements PreferredSizeWidget{
   final Location item;
-  SavedAppBarWidget({Key key, this.item});
+  SavedAppBarWidget({Key key, this.item}): preferredSize = Size.fromHeight(56.0), super(key: key);
+
+  @override
+  final Size preferredSize;
 
   @override
   _SavedAppBarWidgetState createState() => _SavedAppBarWidgetState();
@@ -13,26 +16,44 @@ class SavedAppBarWidget extends StatefulWidget {
 
 class _SavedAppBarWidgetState extends State<SavedAppBarWidget> {
   final db = DatabaseHelper.instance;
-  var _isSaved;
+  bool _isSaved = false;
 
   @override
   void initState() {
     super.initState();
 
-    _isSaved = db.searchLocation(widget.item.locId);
+    loadState();
   }
 
   void _toggleSaved() {
     setState(() {
       if (_isSaved) {
         _isSaved = false;
-        db.deleteLocation(widget.item.id);
+        removeLocation();
       }
       else {
         _isSaved = true;
-        db.saveLocation(widget.item);
+        saveLocation();
       }
     });
+  }
+
+  loadState() async{
+    _isSaved = await db.searchLocation(widget.item.locId);
+  }
+
+  removeLocation() async{
+    var remove = await db.deleteLocation(widget.item.id);
+    if(remove == 1){
+      print("location deleted");
+    }
+  }
+
+  saveLocation() async{
+    var save = await db.saveLocation(widget.item);
+    if(save != 0){
+      print("location added");
+    }
   }
 
   @override
@@ -47,7 +68,7 @@ class _SavedAppBarWidgetState extends State<SavedAppBarWidget> {
       title: Text("Weather", style: TextStyle(fontWeight: FontWeight.bold)),
       actions: <Widget>[
         IconButton(
-          icon: (_isSaved ? Icon(Icons.bookmark, color: const Color(0xFF1EB980)) : Icon(Icons.bookmark_border)),
+          icon: (_isSaved ? Icon(Icons.bookmark, color: const Color(0xFF1EB980)) : Icon(Icons.bookmark_border, color: const Color(0xFF1EB980))),
           onPressed: _toggleSaved,
         ),
         IconButton(

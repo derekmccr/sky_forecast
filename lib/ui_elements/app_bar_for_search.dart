@@ -57,8 +57,6 @@ class _SearchedAppBarWidgetState extends State<SearchedAppBarWidget> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -71,7 +69,7 @@ class _SearchedAppBarWidgetState extends State<SearchedAppBarWidget> {
       title: Text("Weather", style: TextStyle(fontWeight: FontWeight.bold)),
       actions: <Widget>[
         IconButton(
-          icon: (_isSaved ? Icon(Icons.bookmark, color: const Color(0xFF1EB980)) : Icon(Icons.bookmark_border)),
+          icon: (_isSaved ? Icon(Icons.bookmark, color: const Color(0xFF1EB980)) : Icon(Icons.bookmark_border, color: const Color(0xFF1EB980))),
           onPressed: _toggleSaved,
         ),
         IconButton(

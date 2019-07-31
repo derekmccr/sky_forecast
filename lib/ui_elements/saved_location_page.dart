@@ -9,7 +9,6 @@ import '../Services/weather_api.dart';
 import '../Services/forecast_api.dart';
 import 'package:intl/intl.dart';
 import 'package:preferences/preferences.dart';
-import 'settings.dart';
 import 'styles.dart';
 import 'app_bar_for_saved.dart';
 import '../Services/database_helper.dart';
@@ -33,7 +32,6 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
   final ForecastApi forecastWeather = ForecastApi();
   final db = DatabaseHelper.instance;
   String error;
-  var _isSaved;
 
   @override
   void initState() {
@@ -45,26 +43,7 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(Icons.home, color: const Color(0xFF1EB980)),
-            onPressed: (){
-              Navigator.of(context).popUntil((route) => route.isFirst);
-            }
-        ),
-        title: Text("Weather", style: TextStyle(fontWeight: FontWeight.bold)),
-        actions: <Widget>[
-          SavedAppBarWidget(item: widget.location),
-          IconButton(
-            icon: Icon(Icons.more_vert, color: const Color(0xFF1EB980)),
-            onPressed: (){
-              Navigator.push(context,
-                MyCustomRoute(builder: (context) => SettingsPage()),
-              );
-            },
-          )
-        ],
-      ),
+      appBar: SavedAppBarWidget(item: widget.location),
       body: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor
@@ -255,23 +234,6 @@ class _SavedLocationPageState extends State<SavedLocationPage> {
 
     setState(() {
       isLoading = false;
-    });
-  }
-
-  void _toggleSaved() {
-    setState(() {
-      if (_isSaved) {
-        _isSaved = false;
-        db.deleteLocation(widget.location.id);
-      }
-      else {
-        _isSaved = true;
-        Location save = new Location(
-          id: widget.location.id,
-          name: widget.location.name,
-        );
-        db.saveLocation(save);
-      }
     });
   }
 }
