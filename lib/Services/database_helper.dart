@@ -320,15 +320,6 @@ class DatabaseHelper {
 
   // All of the rows are returned as a list of maps, where each map is
   // a key-value list of columns.
-  /*Future<List> getAllLocations() async {
-    Database dbClient = await instance.database;
-
-    //Query the table for all Locations.
-    var res = await dbClient.query(table);
-
-    List<Location> list = res.isNotEmpty ? res.map((c) => Location.fromMap(c)).toList() : [];
-    return list;
-  }*/
   Future<List<Location>> getAllLocations() async {
     Database dbClient = await instance.database;
     var response = await dbClient.query(table);

@@ -118,17 +118,6 @@ class _LocationListViewState extends State<LocationListView> {
               onTap: () => _navigateToLocationDetail(context, location),
               child: _itemCard(data, context),
             );
-            /*return ListTile(
-                contentPadding: EdgeInsets.all(10.0),
-                leading: _itemThumbnail(snapshot),
-                title: _itemTitle(snapshot),
-                subtitle: _itemSubtitle(snapshot),
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MyCustomRoute(
-                          builder: (context) => SavedLocationPage()))
-                      .whenComplete(loadLocations);
-                });*/
           } else {
             return Center(
               child: Text(snapshot.error.toString()),
