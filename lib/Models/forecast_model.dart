@@ -12,11 +12,11 @@ class Forecast{
       Weather w = new Weather(
           overalls: Overall.fromJson(e["weather"][0]),
           numbers: Number.fromJson(e["main"]),
-          visibility: e["visibility"],
+          visibility: e["visibility"] == null ? 0 : e["visibility"],
           winds: Wind.fromJson(e["wind"]),
-          currentTime: DateTime.fromMillisecondsSinceEpoch(e["dt"] * 1000, isUtc: false).toLocal(),
+          currentTime: e["dt"] == null ? 0 : DateTime.fromMillisecondsSinceEpoch(e["dt"] * 1000, isUtc: false).toLocal(),
           systems: null,
-          name: json["city"]["name"]);
+          name: json["city"]["name"] == null ? "EMPTY" : json["city"]["name"]);
       list.add(w);
     }
 

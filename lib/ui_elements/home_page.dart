@@ -7,6 +7,7 @@ import 'settings.dart';
 import 'search_page.dart';
 import '../Models/weather_model.dart';
 import 'package:preferences/preferences.dart';
+import 'styles.dart';
 
 //Home Page - houses list of all saved locations with brief overview for each location
 class LocationListView extends StatefulWidget {
@@ -16,6 +17,7 @@ class LocationListView extends StatefulWidget {
 
 class _LocationListViewState extends State<LocationListView> {
   List<Location> items = new List();
+  List<Weather> data = new List();
   final dbHelper = DatabaseHelper.instance;
   final WeatherApi api = new WeatherApi();
   bool isLoading = false;
@@ -37,10 +39,12 @@ class _LocationListViewState extends State<LocationListView> {
       isLoading = true;
     });
     items = await dbHelper.getAllLocations();
-
-    if (items.length == 0) {
-      print("no locations");
+    if(items.length != 0){
+      for(int i = 0; i < items.length; i++){
+        data.add(await api.fetchWeather(items[i].locId));
+      }
     }
+
 
     setState(() {
       isLoading = false;
@@ -85,7 +89,7 @@ class _LocationListViewState extends State<LocationListView> {
                             color: Theme.of(context).primaryColor),
                         child: ListView.builder(
                           itemCount: this.items.length,
-                          itemBuilder: _futureBuilder,
+                          itemBuilder: _listItemBuilder,
                         ),
                       )
                     : Center(
@@ -107,23 +111,11 @@ class _LocationListViewState extends State<LocationListView> {
     );
   }
 
-  Widget _futureBuilder(BuildContext context, int index) {
-    var location = this.items[index];
-    return FutureBuilder(
-        future: api.fetchWeather(location.locId),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            Weather data = snapshot.data;
-            return GestureDetector(
-              onTap: () => _navigateToLocationDetail(context, location),
-              child: _itemCard(data, context),
-            );
-          } else {
-            return Center(
-              child: Text(snapshot.error.toString()),
-            );
-          }
-        });
+  Widget _listItemBuilder(BuildContext context, int index){
+    return GestureDetector(
+      onTap: () => _navigateToLocationDetail(context, items[index]),
+      child: _itemCard(data[index], context),
+    );
   }
 
   void _navigateToLocationDetail(BuildContext context, Location location) {
@@ -154,8 +146,8 @@ class _LocationListViewState extends State<LocationListView> {
                 right:  BorderSide(width: 1.0, color: const Color(0xFF1EB980)))),
         child: _itemThumbnail(item),
       ),
-      title: Text(item.name, style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Muli")),
-      trailing: Text(temp(item.numbers.temp), style: TextStyle(fontSize: 24.0, color: Colors.white, fontFamily: "Muli")),
+      title: Text(item.name, style: Styles.tileHeader),
+      trailing: Text(temp(item.numbers.temp), style: Styles.tileTrailing),
     );
   }
 

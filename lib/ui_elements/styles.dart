@@ -24,6 +24,19 @@ class Styles{
     fontWeight: FontWeight.w600
   );
 
+  static final tileHeader = TextStyle(
+      fontFamily: _fontNameDefault,
+      fontSize: 30.0,
+      fontWeight: FontWeight.bold,
+      color: _textColorDefault
+  );
+
+  static final tileTrailing = TextStyle(
+      fontFamily: _fontNameDefault,
+      fontSize: 24.0,
+      color: _textColorDefault
+  );
+
 
   //Hex value helper function
   static Color _hexToColor(String code) {

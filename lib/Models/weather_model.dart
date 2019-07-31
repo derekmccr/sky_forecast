@@ -13,11 +13,11 @@ class Weather {
     return Weather(
       overalls: Overall.fromJson(json["weather"][0]),
       numbers: Number.fromJson(json["main"]),
-      visibility: json["visibility"].toInt(),
+      visibility: json["visibility"] == null ? 0 : json["visibility"].toInt(),
       winds: Wind.fromJson(json["wind"]),
       currentTime: DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false).toLocal(),
       systems: Sys.fromJson(json["sys"]),
-      name: json["name"]
+      name: json["name"] == null ? "empty" : json["name"]
     );
   }
 }
@@ -32,10 +32,10 @@ class Overall{
 
   factory Overall.fromJson(Map<String, dynamic> json){
     return Overall(
-      id: json["id"].toInt(),
-      main: json["main"],
-      description: json["description"],
-      icon: json["icon"],
+      id: json["id"] ==  null ? 0 : json["id"].toInt(),
+      main: json["main"] ==  null ? "empty" : json["main"],
+      description: json["description"] ==  null ? "empty" : json["description"],
+      icon: json["icon"] ==  null ? "01d" : json["icon"],
     );
   }
 }
@@ -51,11 +51,11 @@ class Number{
 
   factory Number.fromJson(Map<String, dynamic> json){
     return Number(
-      temp: json["temp"].toDouble(),
-      pressure: json["pressure"].toDouble(),
-      humidity: json["humidity"].toInt(),
-      tempMin: json["temp_min"].toDouble(),
-      tempMax: json["temp_max"].toDouble(),
+      temp: json["temp"] ==  null ? 0.0 : json["temp"].toDouble(),
+      pressure: json["pressure"] ==  null ? 0.0 : json["pressure"].toDouble(),
+      humidity: json["humidity"] ==  null ? 0 : json["humidity"].toInt(),
+      tempMin: json["temp_min"] ==  null ? 0.0 : json["temp_min"].toDouble(),
+      tempMax: json["temp_max"] ==  null ? 0.0 : json["temp_max"].toDouble(),
     );
   }
 }
@@ -68,8 +68,8 @@ class Wind{
 
   factory Wind.fromJson(Map<String, dynamic> json){
     return Wind(
-        speed: json["speed"].toDouble(),
-        degree: json["deg"].toDouble(),
+        speed: json["speed"] == null ? 0.0 : json["speed"].toDouble(),
+        degree: json["deg"] == null ? 0.0 : json["deg"].toDouble(),
     );
   }
 }
@@ -82,8 +82,8 @@ class Sys{
 
   factory Sys.fromJson(Map<String, dynamic> json){
     return Sys(
-      sunrise: DateTime.fromMillisecondsSinceEpoch(json['sunrise'] * 1000, isUtc: false).toLocal(),
-      sunset: DateTime.fromMillisecondsSinceEpoch(json['sunset'] * 1000, isUtc: false).toLocal(),
+      sunrise: json['sunrise'] == null ? 0 : DateTime.fromMillisecondsSinceEpoch(json['sunrise'] * 1000, isUtc: false).toLocal(),
+      sunset: json['sunset'] == null ? 0 : DateTime.fromMillisecondsSinceEpoch(json['sunset'] * 1000, isUtc: false).toLocal(),
     );
   }
 }
