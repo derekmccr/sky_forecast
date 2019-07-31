@@ -51,7 +51,7 @@ class _LocationListViewState extends State<LocationListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Locations"),
+        title: Text("Locations", style: TextStyle(fontWeight: FontWeight.bold)),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search, color: const Color(0xFF1EB980)),

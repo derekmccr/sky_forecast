@@ -32,6 +32,12 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: const Color(0xFF1EB980)),
+              onPressed: (){
+                Navigator.pop(context);
+              }
+          ),
           title: Text("Search", style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         body: Center(
