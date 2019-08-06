@@ -9,7 +9,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Sky Forecast"
-        android:icon="@mipmap/skyF_launcher">
+        android:icon="@mipmap/skyf_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
