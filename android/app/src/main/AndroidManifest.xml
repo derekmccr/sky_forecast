@@ -8,8 +8,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="sky_forecast"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Sky Forecast"
+        android:icon="@mipmap/skyF_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
