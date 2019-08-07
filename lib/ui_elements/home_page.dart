@@ -38,6 +38,7 @@ class _LocationListViewState extends State<LocationListView> {
     setState(() {
       isLoading = true;
     });
+
     items = await dbHelper.getAllLocations();
     if(items.length != 0){
       for(int i = 0; i < items.length; i++){
