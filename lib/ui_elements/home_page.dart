@@ -41,11 +41,13 @@ class _LocationListViewState extends State<LocationListView> {
 
     items = await dbHelper.getAllLocations();
     if(items.length != 0){
+      if(data.length != 0){
+        data.clear();
+      }
       for(int i = 0; i < items.length; i++){
         data.add(await api.fetchWeather(items[i].locId));
       }
     }
-
 
     setState(() {
       isLoading = false;
